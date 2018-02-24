@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SUGAR_CrossPlatform.TestPage">
+	<ContentPage.Content>
+        <ScrollView>
+        <StackLayout
+            Padding="40">
+            <Button
+                x:Name="SaveButton"
+                Text="Save Test Profile"
+                Clicked="SaveTestProfile"/>
+            <Button
+                x:Name="ReadTextButton"
+                Text="Read as Text"
+                Clicked="ReadAsText"/>
+            <Button
+                x:Name="ReadProfileButton"
+                Text="Read as Profile"
+                Clicked="ReadAsProfile"/>
+            <Label
+                x:Name="ResultLabel"/>
+        </StackLayout>
+        </ScrollView>
+	</ContentPage.Content>
+</ContentPage>
