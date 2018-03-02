@@ -11,6 +11,10 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)SUGAR_CrossPlatformPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)OverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -18,6 +22,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)SUGAR_CrossPlatformPage.xaml.cs">
       <DependentUpon>SUGAR_CrossPlatformPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)OverviewPage.xaml.cs">
+      <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

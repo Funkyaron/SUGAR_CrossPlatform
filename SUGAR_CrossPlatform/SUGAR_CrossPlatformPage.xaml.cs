@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using System;
 
 namespace SUGAR_CrossPlatform
 {
@@ -7,6 +8,22 @@ namespace SUGAR_CrossPlatform
         public SUGAR_CrossPlatformPage()
         {
             InitializeComponent();
+
+        }
+
+        public  void OpenShowProfiles(object sender,EventArgs e)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new OverviewPage());
+        }
+
+        public void OpenDoNotDisturb(object sender,EventArgs e)
+        {
+            Console.WriteLine("I never asked for this.");
+        }
+
+        public void OpenClosingTimes(object sender,EventArgs e)
+        {
+            return;
         }
     }
 }

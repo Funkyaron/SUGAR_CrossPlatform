@@ -7,8 +7,7 @@ namespace SUGAR_CrossPlatform
         public App()
         {
             InitializeComponent();
-
-            MainPage = new SUGAR_CrossPlatformPage();
+            MainPage = new NavigationPage(new SUGAR_CrossPlatformPage());
         }
 
         protected override void OnStart()
