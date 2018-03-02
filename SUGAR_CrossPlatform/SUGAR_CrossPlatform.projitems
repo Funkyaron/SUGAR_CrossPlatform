@@ -30,5 +30,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)IScheduler.cs" />
   </ItemGroup>
 </Project>

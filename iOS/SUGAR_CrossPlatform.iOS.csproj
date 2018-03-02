@@ -116,6 +116,9 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Scheduler.cs" />
+    <Compile Include="NSWeekDay.cs" />
+    <Compile Include="ProfileUpdateDelegate.cs" />
   </ItemGroup>
   <Import Project="..\SUGAR_CrossPlatform\SUGAR_CrossPlatform.projitems" Label="Shared" Condition="Exists('..\SUGAR_CrossPlatform\SUGAR_CrossPlatform.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

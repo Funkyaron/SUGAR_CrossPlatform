@@ -1,7 +1,7 @@
 ﻿using System;
 namespace SUGAR_CrossPlatform
 {
-    public class TimeUnit
+    public struct TimeUnit
     {
         public TimeUnit(int hour, int minute)
         {
@@ -17,6 +17,46 @@ namespace SUGAR_CrossPlatform
             var hour = Int32.Parse(numberStrings[0]);
             var minute = Int32.Parse(numberStrings[1]);
             return new TimeUnit(hour, minute);
+        }
+
+        public static bool operator <(TimeUnit left, TimeUnit right) {
+            if(left.Hour < right.Hour) {
+                return true;
+            } else if(left.Minute < right.Minute) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public static bool operator >(TimeUnit left, TimeUnit right) {
+            if(left.Hour > right.Hour) {
+                return true;
+            } else if(left.Hour > right.Hour) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public static bool operator <=(TimeUnit left, TimeUnit right) {
+            if(left < right) {
+                return true;
+            } else if(left.Hour == right.Hour && left.Hour == right.Hour) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public static bool operator >=(TimeUnit left, TimeUnit right) {
+            if(left > right) {
+                return true;
+            } else if(left.Hour == right.Hour && left.Minute == right.Minute) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public override string ToString()
