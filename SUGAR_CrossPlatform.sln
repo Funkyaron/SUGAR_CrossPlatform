@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUGAR_CrossPlatform.Droid",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUGAR_CrossPlatform.UITests", "UITests\SUGAR_CrossPlatform.UITests.csproj", "{E1467B50-0D98-46AF-BB0B-3218BB71E215}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBlockExtension", "PhoneBlockExtension\PhoneBlockExtension.csproj", "{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -55,5 +57,17 @@ Global
 		{E1467B50-0D98-46AF-BB0B-3218BB71E215}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1467B50-0D98-46AF-BB0B-3218BB71E215}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1467B50-0D98-46AF-BB0B-3218BB71E215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Release|iPhone.ActiveCfg = Release|iPhone
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Release|iPhone.Build.0 = Release|iPhone
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Debug|iPhone.Build.0 = Debug|iPhone
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{A4E15841-28BA-4339-A7BE-A3660DDC1B6A}.Release|Any CPU.Build.0 = Release|iPhone
 	EndGlobalSection
 EndGlobal
