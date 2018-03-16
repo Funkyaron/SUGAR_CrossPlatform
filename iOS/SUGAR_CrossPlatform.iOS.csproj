@@ -116,6 +116,9 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Scheduler.cs" />
+    <Compile Include="NSWeekDay.cs" />
+    <Compile Include="ProfileUpdateDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PhoneBlockExtension\PhoneBlockExtension.csproj">

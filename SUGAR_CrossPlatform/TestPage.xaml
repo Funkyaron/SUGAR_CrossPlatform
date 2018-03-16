@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SUGAR_CrossPlatform.TestPage">
-	<ContentPage.Content>
+    <ContentPage.Content>
         <ScrollView>
         <StackLayout
             Padding="40">
@@ -8,17 +8,25 @@
                 x:Name="SaveButton"
                 Text="Save Test Profile"
                 Clicked="SaveTestProfile"/>
-            <Button
+            <!--<Button
                 x:Name="ReadTextButton"
                 Text="Read as Text"
-                Clicked="ReadAsText"/>
+                Clicked="ReadAsText"/>-->
             <Button
                 x:Name="ReadProfileButton"
                 Text="Read as Profile"
                 Clicked="ReadAsProfile"/>
+            <Button
+                x:Name="InitButton"
+                Text="Init Profile"
+                Clicked="InitProfile"/>
+            <!--<Button
+                x:Name="CompareButton"
+                Text="Compare TimeUnits"
+                Clicked="Compare"/>-->
             <Label
                 x:Name="ResultLabel"/>
         </StackLayout>
         </ScrollView>
-	</ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>
