@@ -3,6 +3,7 @@ using System.Threading;
 using System.IO;
 using System.Xml;
 using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace SUGAR_CrossPlatform
 {
@@ -115,7 +116,67 @@ namespace SUGAR_CrossPlatform
             return isSuccessful;
         }
 
-        public Profile ReadProfile(string name)
+        public Profile GetProfile(string name) {
+            var fileName = name + ".xml";
+            var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var filePath = Path.Combine(folderPath, fileName);
+
+            return ReadProfile(filePath);
+        }
+
+        public Profile[] GetAllProfiles() {
+            List<Profile> readProfiles = new List<Profile>();
+            var allFiles = Directory.EnumerateFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
+
+            foreach(string filePath in allFiles) {
+                Profile currentProfile = ReadProfile(filePath);
+                if(currentProfile != null) {
+                    readProfiles.Add(currentProfile);
+                }
+            }
+
+            return readProfiles.ToArray();
+        }
+
+
+        public void InitProfile(Profile prof) {
+            if(prof.Active == false) {
+                prof.Allowed = true;
+                return;
+            }
+
+            // Find out if the Profile is currently enabled or disabled
+            DateTime now = DateTime.Now;
+            DayOfWeek currentDay = now.DayOfWeek;
+            int currentDayIndex = ToIndex(currentDay);
+
+            if(prof.Days[currentDayIndex] == false) {
+                prof.Allowed = false;
+            } else {
+                TimeUnit currentTime = new TimeUnit(now.Hour, now.Minute);
+                TimeUnit startTime = prof.StartTimes[currentDayIndex];
+                TimeUnit endTime = prof.EndTimes[currentDayIndex];
+
+                if(currentTime >= startTime && currentTime < endTime) {
+                    // The current time lies in the allowed time span.
+                    prof.Allowed = true;
+                } else {
+                    prof.Allowed = false;
+                }
+            }
+
+            SaveProfile(prof);
+
+            // Now schedule the enabling and disabling actions.
+            IScheduler scheduler = DependencyService.Get<IScheduler>();
+            scheduler.ScheduleNextEnable(prof);
+            scheduler.ScheduleNextDisable(prof);
+        }
+
+
+
+
+        private Profile ReadProfile(string path)
         {
             _rwl.EnterReadLock();
 
@@ -125,11 +186,7 @@ namespace SUGAR_CrossPlatform
 
             try
             {
-                var fileName = name + ".xml";
-                var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                var filePath = Path.Combine(documentsPath, fileName);
-
-                reader = XmlReader.Create(filePath);
+                reader = XmlReader.Create(path);
 
                 reader.ReadToFollowing("Name");
 
@@ -203,6 +260,50 @@ namespace SUGAR_CrossPlatform
             _rwl.ExitReadLock();
 
             return result;
+        }
+
+
+
+        private int ToIndex(DayOfWeek day) {
+            switch(day) {
+                case DayOfWeek.Monday:
+                    return 0;
+                case DayOfWeek.Tuesday:
+                    return 1;
+                case DayOfWeek.Wednesday:
+                    return 2;
+                case DayOfWeek.Thursday:
+                    return 3;
+                case DayOfWeek.Friday:
+                    return 4;
+                case DayOfWeek.Saturday:
+                    return 5;
+                case DayOfWeek.Sunday:
+                    return 6;
+                default:
+                    return 0;
+            }
+        }
+
+        private DayOfWeek ToDayOfWeek(int index) {
+            switch(index) {
+                case 0:
+                    return DayOfWeek.Monday;
+                case 1:
+                    return DayOfWeek.Tuesday;
+                case 2:
+                    return DayOfWeek.Wednesday;
+                case 3:
+                    return DayOfWeek.Thursday;
+                case 4:
+                    return DayOfWeek.Friday;
+                case 5:
+                    return DayOfWeek.Saturday;
+                case 6:
+                    return DayOfWeek.Sunday;
+                default:
+                    return DayOfWeek.Monday;
+            }
         }
 
         private void CreateError()
