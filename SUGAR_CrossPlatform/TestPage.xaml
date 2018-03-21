@@ -8,18 +8,18 @@
                 x:Name="SaveButton"
                 Text="Save Test Profile"
                 Clicked="SaveTestProfile"/>
-            <!--<Button
+            <Button
                 x:Name="ReadTextButton"
                 Text="Read as Text"
-                Clicked="ReadAsText"/>-->
+                Clicked="ReadAsText"/>
             <Button
                 x:Name="ReadProfileButton"
                 Text="Read as Profile"
                 Clicked="ReadAsProfile"/>
-            <Button
+            <!--<Button
                 x:Name="InitButton"
                 Text="Init Profile"
-                Clicked="InitProfile"/>
+                Clicked="InitProfile"/>-->
             <!--<Button
                 x:Name="CompareButton"
                 Text="Compare TimeUnits"
