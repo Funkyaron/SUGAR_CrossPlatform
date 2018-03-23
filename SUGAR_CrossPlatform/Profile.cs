@@ -21,11 +21,12 @@ namespace SUGAR_CrossPlatform
             Active = false;
             Allowed = true;
             Mode = BlockMode.WhiteList;
-            PhoneNumbers = new List<string>();
+            PhoneNumbersAsStrings = new List<string>();
+            PhoneNumbersAsLongs = new List<long>();
             ContactNames = new List<string>();
         }
 
-        public Profile(string name, bool[] days, TimeUnit[] startTimes, TimeUnit[] endTimes, bool active, bool allowed, BlockMode mode, List<string> phoneNumbers, List<string> contactNames)
+        public Profile(string name, bool[] days, TimeUnit[] startTimes, TimeUnit[] endTimes, bool active, bool allowed, BlockMode mode, List<string> phoneNumbersAsStrings, List<long> phoneNumbersAsLongs, List<string> contactNames)
         {
             Name = name;
             Days = days;
@@ -34,7 +35,8 @@ namespace SUGAR_CrossPlatform
             Active = active;
             Allowed = allowed;
             Mode = mode;
-            PhoneNumbers = phoneNumbers;
+            PhoneNumbersAsStrings = phoneNumbersAsStrings;
+            PhoneNumbersAsLongs = phoneNumbersAsLongs;
             ContactNames = contactNames;
         }
 
@@ -45,12 +47,13 @@ namespace SUGAR_CrossPlatform
         public bool Active { get; set; }
         public bool Allowed { get; set; }
         public BlockMode Mode { get; set; }
-        public List<string> PhoneNumbers { get; set; }
+        public List<string> PhoneNumbersAsStrings { get; set; }
+        public List<long> PhoneNumbersAsLongs { get; set; }
         public List<string> ContactNames { get; set; }
 
         public override string ToString()
         {
-            return string.Format("[Profile: Name={0}, Days={1}, StartTimes={2}, EndTimes={3}, Active={4}, Allowed={5}, Mode={6}, PhoneNumbers={7}, ContactNames={8}]", Name, Days, StartTimes, EndTimes, Active, Allowed, Mode, PhoneNumbers, ContactNames);
+            return string.Format("[Profile: Name={0}, Days={1}, StartTimes={2}, EndTimes={3}, Active={4}, Allowed={5}, Mode={6}, PhoneNumbersAsStrings={7}, PhoneNumbersAsLongs={8}, ContactNames={9}]", Name, Days, StartTimes, EndTimes, Active, Allowed, Mode, PhoneNumbersAsStrings, PhoneNumbersAsLongs, ContactNames);
         }
     }
 }

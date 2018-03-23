@@ -71,17 +71,30 @@ namespace SUGAR_CrossPlatform
                 writer.WriteValue((int) prof.Mode);
                 writer.WriteEndElement();
 
-                writer.WriteStartElement("PhoneNumbers");
-                if (prof.PhoneNumbers.Count == 0)
+                writer.WriteStartElement("PhoneNumbersAsStrings");
+                if (prof.PhoneNumbersAsStrings.Count == 0)
                 {
-                    writer.WriteStartElement("PhoneNumber");
+                    writer.WriteStartElement("PhoneNumberString");
                     writer.WriteEndElement();
                 }
                 else
                 {
-                    foreach (string number in prof.PhoneNumbers)
+                    foreach (string number in prof.PhoneNumbersAsStrings)
                     {
-                        writer.WriteElementString("PhoneNumber", number);
+                        writer.WriteElementString("PhoneNumberString", number);
+                    }
+                }
+                writer.WriteEndElement();
+
+                writer.WriteStartElement("PhoneNumbersAsLongs");
+                if(prof.PhoneNumbersAsLongs.Count == 0) {
+                    writer.WriteStartElement("PhoneNumberLong");
+                    writer.WriteEndElement();
+                } else {
+                    foreach(long number in prof.PhoneNumbersAsLongs) {
+                        writer.WriteStartElement("PhoneNumberLong");
+                        writer.WriteValue(number);
+                        writer.WriteEndElement();
                     }
                 }
                 writer.WriteEndElement();
@@ -107,7 +120,7 @@ namespace SUGAR_CrossPlatform
             }
             catch (Exception e)
             {
-                string stopThisFuckingWarning = e.StackTrace;
+                Console.WriteLine(e.StackTrace);
                 isSuccessful = false;
             }
             writer?.Close();
@@ -222,10 +235,17 @@ namespace SUGAR_CrossPlatform
 
                 BlockMode mode = (BlockMode) reader.ReadElementContentAsInt();
 
-                List<string> phoneNumbers = new List<string>();
+                List<string> phoneNumbersAsStrings = new List<string>();
                 reader.ReadStartElement();
-                while(reader.Name == "PhoneNumber") {
-                    phoneNumbers.Add(reader.ReadElementContentAsString());
+                while(reader.Name == "PhoneNumberString") {
+                    phoneNumbersAsStrings.Add(reader.ReadElementContentAsString());
+                }
+                reader.ReadEndElement();
+
+                List<long> phoneNumbersAsLongs = new List<long>();
+                reader.ReadStartElement();
+                while(reader.Name == "PhoneNumberLong") {
+                    phoneNumbersAsLongs.Add(reader.ReadElementContentAsLong());
                 }
                 reader.ReadEndElement();
 
@@ -247,13 +267,14 @@ namespace SUGAR_CrossPlatform
                     active,
                     allowed,
                     mode,
-                    phoneNumbers,
+                    phoneNumbersAsStrings,
+                    phoneNumbersAsLongs,
                     contactNames
                 );
             }
             catch (Exception e)
             {
-                string stopThisFuckingWarning = e.StackTrace;
+                Console.WriteLine(e.StackTrace);
                 result = null;
             }
             reader?.Close();

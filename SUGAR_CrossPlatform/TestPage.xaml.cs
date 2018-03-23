@@ -16,8 +16,10 @@ namespace SUGAR_CrossPlatform
         public void SaveTestProfile(object sender, EventArgs e) {
             Profile prof = new Profile();
             prof.Name = "Kurz";
-            prof.PhoneNumbers.Add("1234");
-            prof.PhoneNumbers.Add("5432");
+            prof.PhoneNumbersAsStrings.Add("1234");
+            prof.PhoneNumbersAsStrings.Add("5432");
+            prof.PhoneNumbersAsLongs.Add(1234);
+            prof.PhoneNumbersAsLongs.Add(5678);
             prof.ContactNames.Add("Marius Müller");
             prof.ContactNames.Add("Max Mustermann");
             prof.ContactNames.Add("Martin Mikus");
@@ -43,7 +45,7 @@ namespace SUGAR_CrossPlatform
             }
         }
 
-        /*public void ReadAsText(object sender, EventArgs e) {
+        public void ReadAsText(object sender, EventArgs e) {
             var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var filePath = Path.Combine(documentsPath, "Kurz.xml");
             try {
@@ -51,7 +53,7 @@ namespace SUGAR_CrossPlatform
             } catch(Exception ex) {
                 ResultLabel.Text = ex.StackTrace;
             }
-        }*/
+        }
 
         public void ReadAsProfile(object sender, EventArgs e) {
             ProfileManager mgr = new ProfileManager();
