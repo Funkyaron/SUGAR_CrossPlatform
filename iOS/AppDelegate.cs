@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using UserNotifications;
 
 namespace SUGAR_CrossPlatform.iOS
 {
@@ -18,6 +19,12 @@ namespace SUGAR_CrossPlatform.iOS
 #if DEBUG
 			Xamarin.Calabash.Start();
 #endif
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) =>
+            {
+                // Handle approval..
+            });
+
+            UNUserNotificationCenter.Current.Delegate = new ProfileUpdateDelegate();
 
             LoadApplication(new App());
 
