@@ -14,6 +14,7 @@ namespace SUGAR_CrossPlatform
         public  void OpenShowProfiles(object sender,EventArgs e)
         {
             Application.Current.MainPage.Navigation.PushAsync(new OverviewPage());
+            System.Console.WriteLine("Opening the activity 'ProfileOverview' ...");
         }
 
         public void OpenDoNotDisturb(object sender,EventArgs e)

@@ -4,7 +4,6 @@
         <ScrollView>
             <ListView x:Name="profilesList" 
                       SeparatorColor="black" 
-                      SeparatorWidth="1"
                       RowHeight="80">
                 <ListView.ItemTemplate>
                     <DataTemplate>

@@ -26,5 +26,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ProfileCell.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)power_on.png" />
+    <None Include="$(MSBuildThisFileDirectory)power_off.png" />
   </ItemGroup>
 </Project>
