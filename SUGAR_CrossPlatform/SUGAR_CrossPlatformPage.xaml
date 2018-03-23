@@ -1,4 +1,42 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:SUGAR_CrossPlatform" x:Class="SUGAR_CrossPlatform.SUGAR_CrossPlatformPage">
-	<Label Text="Welcome to Xamarin Forms!" VerticalOptions="Center" HorizontalOptions="Center" />
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Label  Text="Wilkommen bei SUGAR!"
+                    HorizontalOptions="Center"
+                    Margin="0,100,0,0"/>
+            <Label  Text="Was möchten Sie tun?"
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,0"/>
+            <Button x:Name="ShowProfiles"
+                    Text="Profile anzeigen"
+                    TextColor="Black"
+                    HorizontalOptions="Center"
+                    Margin="0,125,0,0"
+                    WidthRequest="250"
+                    BorderWidth="0.5"
+                    BorderRadius="10"
+                    Clicked="OpenShowProfiles"
+                    />
+            <Button x:Name="DoNotDisturb"
+                    Text="Ungestört Arbeiten"
+                    TextColor="Black"
+                    HorizontalOptions="Center"
+                    Margin="0,1,0,0"
+                    WidthRequest="250"
+                    BorderWidth="0.5"
+                    BorderRadius="10"
+                    Clicked="OpenDoNotDisturb"
+                    />
+            <Button x:Name="ClosingTime"
+                    Text="Feierabend"
+                    TextColor="Black"
+                    HorizontalOptions="Center"
+                    Margin="0,1,0,0"
+                    WidthRequest="250"
+                    BorderWidth="0.5"
+                    BorderRadius="10"
+                    Clicked="OpenClosingTimes"/>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
