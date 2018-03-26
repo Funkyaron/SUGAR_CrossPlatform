@@ -61,7 +61,8 @@ namespace SUGAR_CrossPlatform
 
         public override string ToString()
         {
-            return $"{Hour}:{Minute}";
+            string minuteString = Minute.ToString("00");
+            return $"{Hour}:{minuteString}";
         }
     }
 }

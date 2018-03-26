@@ -9,9 +9,17 @@
                 Text="Save Test Profile"
                 Clicked="SaveTestProfile"/>
             <Button
+                x:Name="ToggleProfileButton"
+                Text="Toggle Profile"
+                Clicked="ToggleProfile"/>
+            <!--<Button
+                x:Name="WriteTextButton"
+                Text="Write Text"
+                Clicked="WriteText"/>-->
+            <!--<Button
                 x:Name="ReadTextButton"
                 Text="Read as Text"
-                Clicked="ReadAsText"/>
+                Clicked="ReadAsText"/>-->
             <Button
                 x:Name="ReadProfileButton"
                 Text="Read as Profile"
@@ -24,6 +32,18 @@
                 x:Name="CompareButton"
                 Text="Compare TimeUnits"
                 Clicked="Compare"/>-->
+            <Button
+                x:Name="ReloadExtensionButton"
+                Text="Reload Extension"
+                Clicked="ReloadExtension"/>
+            <!--<Button
+                x:Name="GetURLButton"
+                Text="Get URL for shared data"
+                Clicked="GetURL"/>-->
+            <!--<Button
+                x:Name="GetFilePathButton"
+                Text="Get personal file path"
+                Clicked="GetFilePath"/>-->
             <Label
                 x:Name="ResultLabel"/>
         </StackLayout>

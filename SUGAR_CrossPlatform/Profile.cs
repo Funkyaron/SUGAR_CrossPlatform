@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SUGAR_CrossPlatform
 {
@@ -53,7 +54,37 @@ namespace SUGAR_CrossPlatform
 
         public override string ToString()
         {
-            return string.Format("[Profile: Name={0}, Days={1}, StartTimes={2}, EndTimes={3}, Active={4}, Allowed={5}, Mode={6}, PhoneNumbersAsStrings={7}, PhoneNumbersAsLongs={8}, ContactNames={9}]", Name, Days, StartTimes, EndTimes, Active, Allowed, Mode, PhoneNumbersAsStrings, PhoneNumbersAsLongs, ContactNames);
+            string[] weekdays = { "Monday: ", "Tuesday: ", "Wednesday: ", "Thursday: ", "Friday: ", "Saturday: ", "Sunday: " };
+
+            StringBuilder result = new StringBuilder("Profile: ");
+            result.Append(Name).Append("\n");
+            for (int i = 0; i < 7; i++) {
+                result.Append(weekdays[i]);
+                if(Days[i]) {
+                    result.Append("From ").Append(StartTimes[i]).Append(" to ").Append(EndTimes[i]).Append("\n");
+                } else {
+                    result.Append("None\n");
+                }
+            }
+            result.Append("Active: ").Append(Active).Append("\n");
+            result.Append("Allowed: ").Append(Allowed).Append("\n");
+            result.Append("BlockMode: ").Append(Mode).Append("\n");
+            result.Append("PhoneNumbersAsStrings: ");
+            foreach(string number in PhoneNumbersAsStrings) {
+                result.Append(number).Append(", ");
+            }
+            result.Append("\n");
+            result.Append("PhoneNumbersAsLongs: ");
+            foreach(long number in PhoneNumbersAsLongs) {
+                result.Append(number).Append(", ");
+            }
+            result.Append("\n");
+            result.Append("ContactNames: ");
+            foreach(string contactName in ContactNames) {
+                result.Append(contactName).Append(", ");
+            }
+
+            return result.ToString();
         }
     }
 }

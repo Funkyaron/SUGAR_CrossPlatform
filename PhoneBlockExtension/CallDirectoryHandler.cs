@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Foundation;
 using CallKit;
@@ -17,19 +18,18 @@ namespace PhoneBlockExtension
 
         public override void BeginRequestWithExtensionContext(NSExtensionContext context)
         {
+            // Note that there has to be an entry in the user's contacts to make iOS
+            // block any call form a given number... I think.
+
             var cxContext = (CXCallDirectoryExtensionContext)context;
             cxContext.Delegate = this;
 
-            if (cxContext.Incremental) {
-                AddOrRemoveIncrementalBlockingPhoneNumbers(cxContext);
-            } else {
-                if (!AddBlockingPhoneNumbers(cxContext))
-                {
-                    Console.WriteLine("Unable to add blocking phone numbers");
-                    var error = new NSError(new NSString("CallDirectoryHandler"), 1, null);
-                    cxContext.CancelRequest(error);
-                    return;
-                }
+            if (!AddBlockingPhoneNumbers(cxContext))
+            {
+                Console.WriteLine("Unable to add blocking phone numbers");
+                var error = new NSError(new NSString("CallDirectoryHandler"), 1, null);
+                cxContext.CancelRequest(error);
+                return;
             }
 
             cxContext.CompleteRequest(null);
@@ -42,34 +42,23 @@ namespace PhoneBlockExtension
             //
             // Numbers must be provided in numerically ascending order.
 
+            context.RemoveAllBlockingEntries();
+
             ProfileManager mgr = new ProfileManager();
             Profile[] allProfiles = mgr.GetAllProfiles();
+
+            List<long> allNumbers = new List<long>();
 
             foreach(Profile prof in allProfiles) {
                 if(!prof.Allowed) {
                     foreach(long phoneNumber in prof.PhoneNumbersAsLongs) {
-                        context.AddBlockingEntry(phoneNumber);
+                        allNumbers.Add(phoneNumber);
                     }
                 }
             }
-
-            return true;
-        }
-
-        bool AddOrRemoveIncrementalBlockingPhoneNumbers(CXCallDirectoryExtensionContext context) {
-            ProfileManager mgr = new ProfileManager();
-            Profile[] allProfiles = mgr.GetAllProfiles();
-
-            foreach(Profile prof in allProfiles) {
-                if(prof.Allowed) {
-                    foreach(long phoneNumber in prof.PhoneNumbersAsLongs) {
-                        context.RemoveBlockingEntry(phoneNumber);
-                    }
-                } else {
-                    foreach(long phoneNumber in prof.PhoneNumbersAsLongs) {
-                        context.AddBlockingEntry(phoneNumber);
-                    }
-                }
+            allNumbers.Sort();
+            foreach(long phoneNumber in allNumbers) {
+                context.AddBlockingEntry(phoneNumber);
             }
 
             return true;
