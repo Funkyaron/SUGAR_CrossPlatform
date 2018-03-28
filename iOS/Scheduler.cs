@@ -25,6 +25,7 @@ namespace SUGAR_CrossPlatform.iOS
             content.Subtitle = "Anrufe sind jetzt erlaubt.";
             content.Body = "";
             content.UserInfo = new NSDictionary("ProfileName", prof.Name);
+            content.Sound = UNNotificationSound.Default;
 
             var targetTime = GetTargetTime(prof, true);
             var trigger = UNCalendarNotificationTrigger.CreateTrigger(targetTime, false);
@@ -51,6 +52,7 @@ namespace SUGAR_CrossPlatform.iOS
             content.Subtitle = "Anrufe sind jetzt verboten.";
             content.Body = "";
             content.UserInfo = new NSDictionary("ProfileName", prof.Name);
+            content.Sound = UNNotificationSound.Default;
 
             var targetTime = GetTargetTime(prof, false);
             var trigger = UNCalendarNotificationTrigger.CreateTrigger(targetTime, false);

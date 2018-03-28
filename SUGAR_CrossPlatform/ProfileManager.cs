@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 #if __IOS__
 using Foundation;
+using CallKit;
 #endif
 
 namespace SUGAR_CrossPlatform
@@ -164,41 +165,61 @@ namespace SUGAR_CrossPlatform
             if (prof.Active == false)
             {
                 prof.Allowed = true;
-                return;
-            }
-
-            // Find out if the Profile is currently enabled or disabled
-            DateTime now = DateTime.Now;
-            DayOfWeek currentDay = now.DayOfWeek;
-            int currentDayIndex = ToIndex(currentDay);
-
-            if (prof.Days[currentDayIndex] == false)
-            {
-                prof.Allowed = false;
             }
             else
             {
-                TimeUnit currentTime = new TimeUnit(now.Hour, now.Minute);
-                TimeUnit startTime = prof.StartTimes[currentDayIndex];
-                TimeUnit endTime = prof.EndTimes[currentDayIndex];
 
-                if (currentTime >= startTime && currentTime < endTime)
-                {
-                    // The current time lies in the allowed time span.
-                    prof.Allowed = true;
-                }
-                else
+                // Find out if the Profile is currently enabled or disabled
+                DateTime now = DateTime.Now;
+                DayOfWeek currentDay = now.DayOfWeek;
+                int currentDayIndex = ToIndex(currentDay);
+
+                if (prof.Days[currentDayIndex] == false)
                 {
                     prof.Allowed = false;
                 }
+                else
+                {
+                    TimeUnit currentTime = new TimeUnit(now.Hour, now.Minute);
+                    TimeUnit startTime = prof.StartTimes[currentDayIndex];
+                    TimeUnit endTime = prof.EndTimes[currentDayIndex];
+
+                    if (startTime <= currentTime && currentTime < endTime)
+                    {
+                        // The current time lies in the allowed time span.
+                        prof.Allowed = true;
+                    }
+                    else
+                    {
+                        prof.Allowed = false;
+                    }
+                }
+
+                SaveProfile(prof);
+
+                // Now schedule the enabling and disabling actions.
+                IScheduler scheduler = DependencyService.Get<IScheduler>();
+                scheduler.ScheduleNextEnable(prof);
+                scheduler.ScheduleNextDisable(prof);
             }
 
-            SaveProfile(prof);
+#if __IOS__
+            var callDirManager = CXCallDirectoryManager.SharedInstance;
 
-            // Now schedule the enabling and disabling actions.
-            IScheduler scheduler = DependencyService.Get<IScheduler>();
-            scheduler.ScheduleNextEnable(prof);
-            scheduler.ScheduleNextDisable(prof);
+            callDirManager.ReloadExtension(
+                "de.unisiegen.SUGAR-CrossPlatform.PhoneBlockExtension",
+               error =>
+               {
+                   if (error == null)
+                   {
+                       // Everything's fine
+                   }
+                   else
+                   {
+                       // Error
+                   }
+               });
+#endif
         }
 
 

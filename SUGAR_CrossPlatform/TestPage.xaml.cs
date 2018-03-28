@@ -13,7 +13,6 @@ namespace SUGAR_CrossPlatform
 {
     public partial class TestPage : ContentPage
     {
-        private static Profile prof;
 
         public TestPage()
         {
@@ -21,7 +20,7 @@ namespace SUGAR_CrossPlatform
         }
 
         public void SaveTestProfile(object sender, EventArgs e) {
-            prof = new Profile();
+            Profile prof = new Profile();
             prof.Name = "Kurz";
             prof.PhoneNumbersAsStrings.Add("1234");
             prof.PhoneNumbersAsStrings.Add("5432");
@@ -33,13 +32,13 @@ namespace SUGAR_CrossPlatform
             prof.ContactNames.Add("Martin Mikus");
 
             TimeUnit[] startTimes = prof.StartTimes;
-            startTimes[4] = new TimeUnit(7, 0);
+            startTimes[2] = new TimeUnit(21, 7);
             prof.StartTimes = startTimes;
             TimeUnit[] endTimes = prof.EndTimes;
-            endTimes[4] = new TimeUnit(13, 0);
+            endTimes[2] = new TimeUnit(21, 59);
             prof.EndTimes = endTimes;
             bool[] days = prof.Days;
-            days[4] = true;
+            days[2] = true;
             prof.Days = days;
             prof.Active = true;
             prof.Allowed = false;
@@ -54,34 +53,13 @@ namespace SUGAR_CrossPlatform
         }
 
         public void ToggleProfile(object sender, EventArgs e) {
+            ProfileManager mgr = new ProfileManager();
+            Profile prof = mgr.GetProfile("Kurz");
             bool newValue = !prof.Allowed;
             prof.Allowed = newValue;
-            ProfileManager mgr = new ProfileManager();
             mgr.SaveProfile(prof);
-        }
 
-        public void WriteText(object sender, EventArgs e) {
-            /*try {
-                NSFileManager fileMgr = NSFileManager.DefaultManager;
-                NSUrl url = fileMgr.GetContainerUrl("group.de.unisiegen.SUGAR-CrossPlatform");
-                string filePath = Path.Combine(url.Path, "Test.txt");
-                File.WriteAllText(filePath, "HelloWorld");
-                ResultLabel.Text = "Mission accomplished";
-            } catch(Exception ex) {
-                ResultLabel.Text = ex.ToString();
-            }*/
-        }
-
-        public void ReadAsText(object sender, EventArgs e) {
-            /*try {
-                //var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                NSFileManager filemMgr = NSFileManager.DefaultManager;
-                NSUrl url = filemMgr.GetContainerUrl("group.de.unisiegen.SUGAR-CrossPlatform");
-                var filePath = Path.Combine(url.Path, "Test.txt");
-                ResultLabel.Text = File.ReadAllText(filePath);
-            } catch(Exception ex) {
-                ResultLabel.Text = ex.ToString();
-            }*/
+            ResultLabel.Text = "Profile toggled";
         }
 
         public void ReadAsProfile(object sender, EventArgs e) {
@@ -110,58 +88,55 @@ namespace SUGAR_CrossPlatform
 
         }
 
-        public void Compare(object sender, EventArgs args) {
-            TimeUnit tu1 = new TimeUnit(11, 0);
-            TimeUnit tu2 = new TimeUnit(10, 0);
-            bool earlier = tu1 < tu2;
-            bool earlierOrEqual = tu1 <= tu2;
+        public void ScheduleEnable(object sender, EventArgs e) {
+            ProfileManager mgr = new ProfileManager();
+            Profile prof = mgr.GetProfile("Kurz");
+            IScheduler scheduler = DependencyService.Get<IScheduler>();
+            scheduler.ScheduleNextEnable(prof);
 
-            string resultText = $"Time 1: {tu1}\nTime 2: {tu2}\n";
-            if(earlier) {
-                resultText += "Time 1 is earlier than time 2\n";
+            ResultLabel.Text = "Enable was scheduled";
+        }
+
+        public void ScheduleDisable(object sender, EventArgs e) {
+            ProfileManager mgr = new ProfileManager();
+            Profile prof = mgr.GetProfile("Kurz");
+            IScheduler scheduler = DependencyService.Get<IScheduler>();
+            scheduler.ScheduleNextDisable(prof);
+
+            ResultLabel.Text = "Disable was scheduled";
+        }
+
+        public void Compare(object sender, EventArgs e) {
+            DateTime now = DateTime.Now;
+            TimeUnit currentTime = new TimeUnit(now.Hour, now.Minute);
+            TimeUnit compareTime = new TimeUnit(21, 7);
+
+            ResultLabel.Text = "Current Time: " + currentTime.ToString() + "\n";
+
+            ResultLabel.Text += $"{compareTime} < {currentTime}? {compareTime < currentTime}\n";
+            ResultLabel.Text += $"{currentTime} < {compareTime}? {currentTime < compareTime}\n";
+            ResultLabel.Text += $"{compareTime} <= {currentTime}? {compareTime <= currentTime}\n";
+            ResultLabel.Text += $"{currentTime} <= {compareTime}? {currentTime <= compareTime}\n";
+            ResultLabel.Text += $"{compareTime} > {currentTime}? {compareTime > currentTime}\n";
+            ResultLabel.Text += $"{currentTime} > {compareTime}? {currentTime > compareTime}\n";
+            ResultLabel.Text += $"{compareTime} >= {currentTime}? {compareTime >= currentTime}\n";
+            ResultLabel.Text += $"{currentTime} >= {compareTime}? {currentTime >= compareTime}\n";
+
+            TimeUnit startTime = new TimeUnit(21, 7);
+            TimeUnit endTime = new TimeUnit(21, 59);
+
+            ResultLabel.Text += $"Current Time: {currentTime}\n";
+            ResultLabel.Text += $"Start Time: {startTime}\n";
+            ResultLabel.Text += $"End Time: {endTime}\n";
+
+            ResultLabel.Text += $"Start Time <= Current Time? {startTime <= currentTime}\n";
+            ResultLabel.Text += $"Current Time < End Time? {currentTime < endTime}\n";
+
+            if(startTime <= currentTime && currentTime < endTime) {
+                ResultLabel.Text += "The current time lies inside the time span";
             } else {
-                resultText += "Time 1 is later or equal time 2\n";
+                ResultLabel.Text += "The current time is not inside the time span";
             }
-            if(earlierOrEqual) {
-                resultText += "Time 1 is earlier or equal time 2";
-            } else {
-                resultText += "Time 1 is later than time 2";
-            }
-
-            ResultLabel.Text = resultText;
-        }
-
-        public void ReloadExtension(object sender, EventArgs e) {
-            var callDirManager = CXCallDirectoryManager.SharedInstance;
-
-            callDirManager.ReloadExtension(
-                "de.unisiegen.SUGAR-CrossPlatform.PhoneBlockExtension",
-               error =>
-               {
-                   if (error == null)
-                   {
-                       //ResultLabel.Text = "Reloaded Extension successfully";
-                   }
-                   else
-                   {
-                       //ResultLabel.Text = "Error while reloading";
-                   }
-               });
-            ResultLabel.Text += "\nThe Button has been clicked";
-        }
-
-        public void GetURL(object sender, EventArgs e) {
-            /*NSFileManager mgr = NSFileManager.DefaultManager;
-            NSUrl url = mgr.GetContainerUrl("group.de.unisiegen.SUGAR-CrossPlatform");
-            NSUrl filePathUrl = url.FilePathUrl;
-            NSUrl newUrl = filePathUrl.FileReferenceUrl;
-            ResultLabel.Text = url.Path;
-            ResultLabel.Text += "\n";
-            ResultLabel.Text += url.ToString();*/
-        }
-
-        public void GetFilePath(object sender, EventArgs e) {
-            ResultLabel.Text = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         }
     }
 }

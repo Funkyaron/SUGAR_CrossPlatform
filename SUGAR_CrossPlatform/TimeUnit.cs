@@ -19,44 +19,40 @@ namespace SUGAR_CrossPlatform
             return new TimeUnit(hour, minute);
         }
 
-        public static bool operator <(TimeUnit left, TimeUnit right) {
+        public static bool operator < (TimeUnit left, TimeUnit right) {
             if(left.Hour < right.Hour) {
                 return true;
-            } else if(left.Minute < right.Minute) {
+            } else if(left.Hour == right.Hour && left.Minute < right.Minute) {
                 return true;
             } else {
                 return false;
             }
         }
 
-        public static bool operator >(TimeUnit left, TimeUnit right) {
+        public static bool operator > (TimeUnit left, TimeUnit right) {
             if(left.Hour > right.Hour) {
                 return true;
-            } else if(left.Hour > right.Hour) {
+            } else if(left.Hour == right.Hour && left.Minute > right.Minute) {
                 return true;
             } else {
                 return false;
             }
         }
 
-        public static bool operator <=(TimeUnit left, TimeUnit right) {
-            if(left < right) {
-                return true;
-            } else if(left.Hour == right.Hour && left.Hour == right.Hour) {
-                return true;
-            } else {
-                return false;
-            }
+        public static bool operator == (TimeUnit left, TimeUnit right) {
+            return left.Hour == right.Hour && left.Minute == right.Minute;
         }
 
-        public static bool operator >=(TimeUnit left, TimeUnit right) {
-            if(left > right) {
-                return true;
-            } else if(left.Hour == right.Hour && left.Minute == right.Minute) {
-                return true;
-            } else {
-                return false;
-            }
+        public static bool operator != (TimeUnit left, TimeUnit right) {
+            return left.Hour != right.Hour || left.Minute != right.Minute;
+        }
+
+        public static bool operator <= (TimeUnit left, TimeUnit right) {
+            return left < right || left == right;
+        }
+
+        public static bool operator >= (TimeUnit left, TimeUnit right) {
+            return left > right || left == right;
         }
 
         public override string ToString()

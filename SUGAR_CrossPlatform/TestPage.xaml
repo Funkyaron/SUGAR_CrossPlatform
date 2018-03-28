@@ -12,38 +12,26 @@
                 x:Name="ToggleProfileButton"
                 Text="Toggle Profile"
                 Clicked="ToggleProfile"/>
-            <!--<Button
-                x:Name="WriteTextButton"
-                Text="Write Text"
-                Clicked="WriteText"/>-->
-            <!--<Button
-                x:Name="ReadTextButton"
-                Text="Read as Text"
-                Clicked="ReadAsText"/>-->
             <Button
                 x:Name="ReadProfileButton"
                 Text="Read as Profile"
                 Clicked="ReadAsProfile"/>
-            <!--<Button
+            <Button
                 x:Name="InitButton"
                 Text="Init Profile"
-                Clicked="InitProfile"/>-->
+                Clicked="InitProfile"/>
             <!--<Button
-                x:Name="CompareButton"
-                Text="Compare TimeUnits"
-                Clicked="Compare"/>-->
+                x:Name="ScheduleEnableButton"
+                Text="Schedule Enable"
+                Clicked="ScheduleEnable"/>-->
+            <!--<Button
+                x:Name="ScheduleDisableButton"
+                Text="Schedule Disable"
+                Clicked="ScheduleDisable"/>-->
             <Button
-                x:Name="ReloadExtensionButton"
-                Text="Reload Extension"
-                Clicked="ReloadExtension"/>
-            <!--<Button
-                x:Name="GetURLButton"
-                Text="Get URL for shared data"
-                Clicked="GetURL"/>-->
-            <!--<Button
-                x:Name="GetFilePathButton"
-                Text="Get personal file path"
-                Clicked="GetFilePath"/>-->
+                x:Name="CompareButton"
+                Text="Compare"
+                Clicked="Compare"/>
             <Label
                 x:Name="ResultLabel"/>
         </StackLayout>
