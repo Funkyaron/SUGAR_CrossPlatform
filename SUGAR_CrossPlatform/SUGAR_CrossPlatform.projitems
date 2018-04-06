@@ -11,7 +11,7 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)SUGAR_CrossPlatformPage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)OverviewPage.xaml"/>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)OverviewPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)TestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -28,6 +28,8 @@
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ProfileCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IContactsFetcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SUGARContact.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)power_on.png" />

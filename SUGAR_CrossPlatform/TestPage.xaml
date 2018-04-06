@@ -5,25 +5,29 @@
         <StackLayout
             Padding="40">
             <Button
-                x:Name="SaveButton"
-                Text="Save Test Profile"
-                Clicked="SaveTestProfile"/>
-            <Button
-                x:Name="ReadTextButton"
-                Text="Read as Text"
-                Clicked="ReadAsText"/>
-            <Button
-                x:Name="ReadProfileButton"
-                Text="Read as Profile"
-                Clicked="ReadAsProfile"/>
+                x:Name="FetchContactsButton"
+                Text="Fetch Contacts"
+                Clicked="FetchContacts"/>
             <!--<Button
-                x:Name="InitButton"
-                Text="Init Profile"
-                Clicked="InitProfile"/>-->
+                x:Name="RequestAccessButton"
+                Text="Request Access"
+                Clicked="RequestAccess"/>-->
             <!--<Button
-                x:Name="CompareButton"
-                Text="Compare TimeUnits"
-                Clicked="Compare"/>-->
+                x:Name="ShowNumberButton"
+                Text="Show Number"
+                Clicked="ShowNumber"/>-->
+            <!--<Button
+                x:Name="ShowNormalizedButton"
+                Text="Show Normalized"
+                Clicked="ShowNormalized"/>-->
+            <!--<Button
+                x:Name="DisplayCountryCodeButton"
+                Text="Display Country Code"
+                Clicked="DisplayCountryCode"/>-->
+            <!--<Button
+                x:Name="ShowLongButton"
+                Text="Show Number as Long"
+                Clicked="ShowLong"/>-->
             <Label
                 x:Name="ResultLabel"/>
         </StackLayout>
