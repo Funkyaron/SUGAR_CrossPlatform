@@ -42,5 +42,7 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Diese App muss auf die Kontakte zugreifen können, um diejenigen Kontakte auszuwählen, deren Anrufe geblockt werden sollen.</string>
 </dict>
 </plist>

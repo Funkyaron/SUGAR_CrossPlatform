@@ -5,6 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 using UserNotifications;
+using Contacts;
 
 namespace SUGAR_CrossPlatform.iOS
 {
@@ -26,7 +27,11 @@ namespace SUGAR_CrossPlatform.iOS
 
             UNUserNotificationCenter.Current.Delegate = new ProfileUpdateDelegate();
 
+            // new CNContactStore().RequestAccess(CNEntityType.Contacts, (granted, error) => { });
+
             LoadApplication(new App());
+
+            new CNContactStore().RequestAccess(CNEntityType.Contacts, (granted, error) => { });
 
             return base.FinishedLaunching(app, options);
         }

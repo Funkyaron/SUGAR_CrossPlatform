@@ -1,7 +1,8 @@
 ﻿using System;
-using SUGAR_CrossPlatform.iOS;
 using Foundation;
 using UserNotifications;
+
+using SUGAR_CrossPlatform.iOS;
 
 [assembly: Xamarin.Forms.Dependency(typeof(Scheduler))]
 namespace SUGAR_CrossPlatform.iOS

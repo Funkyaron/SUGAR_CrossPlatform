@@ -64,7 +64,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: aronsfb@gmail.com (5VC4DS6P5T)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
@@ -76,6 +76,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision>iOS Team Provisioning Profile: de.unisiegen.SUGAR-CrossPlatform</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -96,6 +97,9 @@
     </Reference>
     <Reference Include="Calabash">
       <HintPath>..\packages\Xamarin.TestCloud.Agent.0.21.4\lib\Xamarin.iOS\Calabash.dll</HintPath>
+    </Reference>
+    <Reference Include="PhoneNumbers">
+      <HintPath>..\packages\libphonenumber-csharp.8.9.2\lib\netstandard2.0\PhoneNumbers.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +123,7 @@
     <Compile Include="Scheduler.cs" />
     <Compile Include="NSWeekDay.cs" />
     <Compile Include="ProfileUpdateDelegate.cs" />
+    <Compile Include="ContactsFetcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PhoneBlockExtension\PhoneBlockExtension.csproj">
