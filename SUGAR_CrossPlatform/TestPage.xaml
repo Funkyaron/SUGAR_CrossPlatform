@@ -4,30 +4,6 @@
         <ScrollView>
         <StackLayout
             Padding="40">
-            <Button
-                x:Name="FetchContactsButton"
-                Text="Fetch Contacts"
-                Clicked="FetchContacts"/>
-            <!--<Button
-                x:Name="RequestAccessButton"
-                Text="Request Access"
-                Clicked="RequestAccess"/>-->
-            <!--<Button
-                x:Name="ShowNumberButton"
-                Text="Show Number"
-                Clicked="ShowNumber"/>-->
-            <!--<Button
-                x:Name="ShowNormalizedButton"
-                Text="Show Normalized"
-                Clicked="ShowNormalized"/>-->
-            <!--<Button
-                x:Name="DisplayCountryCodeButton"
-                Text="Display Country Code"
-                Clicked="DisplayCountryCode"/>-->
-            <!--<Button
-                x:Name="ShowLongButton"
-                Text="Show Number as Long"
-                Clicked="ShowLong"/>-->
             <Label
                 x:Name="ResultLabel"/>
         </StackLayout>

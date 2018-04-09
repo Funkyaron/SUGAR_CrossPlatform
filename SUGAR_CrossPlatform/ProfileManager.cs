@@ -5,6 +5,11 @@ using System.Xml;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
+#if __IOS__
+using Foundation;
+using CallKit;
+#endif
+
 namespace SUGAR_CrossPlatform
 {
     public class ProfileManager
@@ -25,11 +30,7 @@ namespace SUGAR_CrossPlatform
 
             try
             {
-                var fileName = prof.Name + ".xml";
-                var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                var filePath = Path.Combine(documentsPath, fileName);
-
-                writer = XmlWriter.Create(filePath);
+                writer = XmlWriter.Create(Path.Combine(GetFolderPath(), prof.Name + ".xml"));
 
                 writer.WriteStartDocument();
 
@@ -40,7 +41,8 @@ namespace SUGAR_CrossPlatform
                 //CreateError();
 
                 writer.WriteStartElement("Days");
-                foreach(bool day in prof.Days) {
+                foreach (bool day in prof.Days)
+                {
                     writer.WriteStartElement("Day");
                     writer.WriteValue(day);
                     writer.WriteEndElement();
@@ -48,13 +50,15 @@ namespace SUGAR_CrossPlatform
                 writer.WriteEndElement();
 
                 writer.WriteStartElement("StartTimes");
-                foreach(TimeUnit startTime in prof.StartTimes) {
+                foreach (TimeUnit startTime in prof.StartTimes)
+                {
                     writer.WriteElementString("StartTime", startTime.ToString());
                 }
                 writer.WriteEndElement();
 
                 writer.WriteStartElement("EndTimes");
-                foreach(TimeUnit endTime in prof.EndTimes) {
+                foreach (TimeUnit endTime in prof.EndTimes)
+                {
                     writer.WriteElementString("EndTime", endTime.ToString());
                 }
                 writer.WriteEndElement();
@@ -68,7 +72,7 @@ namespace SUGAR_CrossPlatform
                 writer.WriteEndElement();
 
                 writer.WriteStartElement("Mode");
-                writer.WriteValue((int) prof.Mode);
+                writer.WriteValue((int)prof.Mode);
                 writer.WriteEndElement();
 
                 writer.WriteStartElement("PhoneNumbersAsStrings");
@@ -87,11 +91,15 @@ namespace SUGAR_CrossPlatform
                 writer.WriteEndElement();
 
                 writer.WriteStartElement("PhoneNumbersAsLongs");
-                if(prof.PhoneNumbersAsLongs.Count == 0) {
+                if (prof.PhoneNumbersAsLongs.Count == 0)
+                {
                     writer.WriteStartElement("PhoneNumberLong");
                     writer.WriteEndElement();
-                } else {
-                    foreach(long number in prof.PhoneNumbersAsLongs) {
+                }
+                else
+                {
+                    foreach (long number in prof.PhoneNumbersAsLongs)
+                    {
                         writer.WriteStartElement("PhoneNumberLong");
                         writer.WriteValue(number);
                         writer.WriteEndElement();
@@ -129,21 +137,21 @@ namespace SUGAR_CrossPlatform
             return isSuccessful;
         }
 
-        public Profile GetProfile(string name) {
-            var fileName = name + ".xml";
-            var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePath = Path.Combine(folderPath, fileName);
-
-            return ReadProfile(filePath);
+        public Profile GetProfile(string name)
+        {
+            return ReadProfile(Path.Combine(GetFolderPath(), name + ".xml"));
         }
 
-        public Profile[] GetAllProfiles() {
+        public Profile[] GetAllProfiles()
+        {
             List<Profile> readProfiles = new List<Profile>();
-            var allFiles = Directory.EnumerateFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
+            var allFiles = Directory.EnumerateFiles(GetFolderPath());
 
-            foreach(string filePath in allFiles) {
+            foreach (string filePath in allFiles)
+            {
                 Profile currentProfile = ReadProfile(filePath);
-                if(currentProfile != null) {
+                if (currentProfile != null)
+                {
                     readProfiles.Add(currentProfile);
                 }
             }
@@ -152,41 +160,83 @@ namespace SUGAR_CrossPlatform
         }
 
 
-        public void InitProfile(Profile prof) {
-            if(prof.Active == false) {
+        public void InitProfile(Profile prof)
+        {
+            if (prof.Active == false)
+            {
                 prof.Allowed = true;
-                return;
             }
+            else
+            {
 
-            // Find out if the Profile is currently enabled or disabled
-            DateTime now = DateTime.Now;
-            DayOfWeek currentDay = now.DayOfWeek;
-            int currentDayIndex = ToIndex(currentDay);
+                // Find out if the Profile is currently enabled or disabled
+                DateTime now = DateTime.Now;
+                DayOfWeek currentDay = now.DayOfWeek;
+                int currentDayIndex = ToIndex(currentDay);
 
-            if(prof.Days[currentDayIndex] == false) {
-                prof.Allowed = false;
-            } else {
-                TimeUnit currentTime = new TimeUnit(now.Hour, now.Minute);
-                TimeUnit startTime = prof.StartTimes[currentDayIndex];
-                TimeUnit endTime = prof.EndTimes[currentDayIndex];
-
-                if(currentTime >= startTime && currentTime < endTime) {
-                    // The current time lies in the allowed time span.
-                    prof.Allowed = true;
-                } else {
+                if (prof.Days[currentDayIndex] == false)
+                {
                     prof.Allowed = false;
                 }
+                else
+                {
+                    TimeUnit currentTime = new TimeUnit(now.Hour, now.Minute);
+                    TimeUnit startTime = prof.StartTimes[currentDayIndex];
+                    TimeUnit endTime = prof.EndTimes[currentDayIndex];
+
+                    if (startTime <= currentTime && currentTime < endTime)
+                    {
+                        // The current time lies in the allowed time span.
+                        prof.Allowed = true;
+                    }
+                    else
+                    {
+                        prof.Allowed = false;
+                    }
+                }
+
+                SaveProfile(prof);
+
+                // Now schedule the enabling and disabling actions.
+                IScheduler scheduler = DependencyService.Get<IScheduler>();
+                scheduler.ScheduleNextEnable(prof);
+                scheduler.ScheduleNextDisable(prof);
             }
 
-            SaveProfile(prof);
+#if __IOS__
+            var callDirManager = CXCallDirectoryManager.SharedInstance;
 
-            // Now schedule the enabling and disabling actions.
-            IScheduler scheduler = DependencyService.Get<IScheduler>();
-            scheduler.ScheduleNextEnable(prof);
-            scheduler.ScheduleNextDisable(prof);
+            callDirManager.ReloadExtension(
+                "de.unisiegen.SUGAR-CrossPlatform.PhoneBlockExtension",
+               error =>
+               {
+                   if (error == null)
+                   {
+                       // Everything's fine
+                   }
+                   else
+                   {
+                       // Error
+                   }
+               });
+#endif
         }
 
 
+
+        private string GetFolderPath()
+        {
+            string folderPath = "";
+#if __Android__
+            folderPath += Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+#endif
+#if __IOS__
+            NSFileManager fileMgr = NSFileManager.DefaultManager;
+            NSUrl url = fileMgr.GetContainerUrl("group.de.unisiegen.SUGAR-CrossPlatform");
+            folderPath += url.Path;
+#endif
+            return folderPath;
+        }
 
 
         private Profile ReadProfile(string path)
