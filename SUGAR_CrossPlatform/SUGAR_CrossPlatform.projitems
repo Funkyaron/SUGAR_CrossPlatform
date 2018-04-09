@@ -28,6 +28,8 @@
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ProfileCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IContactsFetcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SUGARContact.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)power_on.png" />

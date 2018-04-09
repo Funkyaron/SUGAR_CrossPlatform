@@ -4,34 +4,6 @@
         <ScrollView>
         <StackLayout
             Padding="40">
-            <Button
-                x:Name="SaveButton"
-                Text="Save Test Profile"
-                Clicked="SaveTestProfile"/>
-            <Button
-                x:Name="ToggleProfileButton"
-                Text="Toggle Profile"
-                Clicked="ToggleProfile"/>
-            <Button
-                x:Name="ReadProfileButton"
-                Text="Read as Profile"
-                Clicked="ReadAsProfile"/>
-            <Button
-                x:Name="InitButton"
-                Text="Init Profile"
-                Clicked="InitProfile"/>
-            <!--<Button
-                x:Name="ScheduleEnableButton"
-                Text="Schedule Enable"
-                Clicked="ScheduleEnable"/>-->
-            <!--<Button
-                x:Name="ScheduleDisableButton"
-                Text="Schedule Disable"
-                Clicked="ScheduleDisable"/>-->
-            <Button
-                x:Name="CompareButton"
-                Text="Compare"
-                Clicked="Compare"/>
             <Label
                 x:Name="ResultLabel"/>
         </StackLayout>

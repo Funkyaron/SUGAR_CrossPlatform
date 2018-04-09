@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 using Xamarin.Forms;
-
-#if __IOS__
-using Foundation;
-using CallKit;
-#endif
 
 namespace SUGAR_CrossPlatform
 {
     public partial class TestPage : ContentPage
     {
+        private const string privateNumber = "0163 9018985";
 
         public TestPage()
         {
@@ -42,13 +39,13 @@ namespace SUGAR_CrossPlatform
             prof.Days = days;
             prof.Active = true;
             prof.Allowed = false;
-
-            ProfileManager mgr = new ProfileManager();
-            bool success = mgr.SaveProfile(prof);
-            if(success) {
-                ResultLabel.Text = "Profile saved.";
-            } else {
-                ResultLabel.Text = "Error while saving.";
+          
+        public void FetchContacts(object sender, EventArgs args) {
+            IContactsFetcher fetcher = DependencyService.Get<IContactsFetcher>();
+            SUGARContact[] allContacts = fetcher.GetAllContacts();
+            ResultLabel.Text = "";
+            foreach(var contact in allContacts) {
+                ResultLabel.Text += $"{contact}\n";
             }
         }
 
@@ -60,32 +57,19 @@ namespace SUGAR_CrossPlatform
             mgr.SaveProfile(prof);
 
             ResultLabel.Text = "Profile toggled";
+
+        public void ShowNumber(object sender, EventArgs args) {
+            ResultLabel.Text = privateNumber;
         }
 
-        public void ReadAsProfile(object sender, EventArgs e) {
-            ProfileManager mgr = new ProfileManager();
-            Profile prof = mgr.GetProfile("Kurz");
-            if (prof != null) {
-                ResultLabel.Text = prof.ToString();
-            } else {
-                ResultLabel.Text = "Error while reading.";
-            }
+        public void ShowNormalized(object sender, EventArgs args) {
+            IContactsFetcher con = DependencyService.Get<IContactsFetcher>();
+            //ResultLabel.Text = con.NormalizeNumber(privateNumber);
         }
 
-        public void InitProfile(object sender, EventArgs args) {
-            try {
-                ProfileManager mgr = new ProfileManager();
-                Profile prof = mgr.GetProfile("Kurz");
-                if(prof != null) {
-                    mgr.InitProfile(prof);
-                    ResultLabel.Text = "Profile initialized";
-                } else {
-                    ResultLabel.Text = "Error while reading";
-                }
-            } catch(Exception e) {
-                ResultLabel.Text = $"Error while initializing: {e}";
-            }
-
+        public void DisplayCountryCode(object sender, EventArgs args) {
+            IContactsFetcher con = DependencyService.Get<IContactsFetcher>();
+            //ResultLabel.Text = con.GetCountryCode();
         }
 
         public void ScheduleEnable(object sender, EventArgs e) {
@@ -137,6 +121,30 @@ namespace SUGAR_CrossPlatform
             } else {
                 ResultLabel.Text += "The current time is not inside the time span";
             }
+
+        public void ShowLong(object sender, EventArgs args) {
+            IContactsFetcher contacts = DependencyService.Get<IContactsFetcher>();
+            /*string normalizedNumber = contacts.NormalizeNumber(privateNumber);
+            long longNumber = 0;
+            try {
+                longNumber = ParseNumberAsLong(normalizedNumber);
+                ResultLabel.Text = longNumber.ToString();
+            } catch(Exception e) {
+                string bla = e.StackTrace;
+                longNumber = 123;
+                ResultLabel.Text = normalizedNumber;
+            }*/
+        }
+
+        public long ParseNumberAsLong(string originalNumber) {
+            StringBuilder builder = new StringBuilder();
+            foreach (char c in originalNumber) {
+                if (char.IsDigit(c)) {
+                    builder.Append(c);
+                }
+            }
+            string resultString = builder.ToString();
+            return Int64.Parse(resultString);
         }
     }
 }
