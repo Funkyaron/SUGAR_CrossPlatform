@@ -4,8 +4,10 @@
         <ScrollView>
         <StackLayout
             Padding="40">
+
             <Label
-                x:Name="ResultLabel"/>
+                x:Name="ResultLabel"
+                Text="Hallo"/>
         </StackLayout>
         </ScrollView>
     </ContentPage.Content>
