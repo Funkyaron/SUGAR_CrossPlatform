@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Telecom;
 
 namespace SUGAR_CrossPlatform.Droid
 {
@@ -21,6 +22,10 @@ namespace SUGAR_CrossPlatform.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            Intent changeDialerIntent = new Intent(TelecomManager.ActionChangeDefaultDialer);
+            changeDialerIntent.PutExtra(TelecomManager.ExtraChangeDefaultDialerPackageName, PackageName);
+            StartActivity(changeDialerIntent);
 
             LoadApplication(new App());
         }
