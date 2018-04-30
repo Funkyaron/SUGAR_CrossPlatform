@@ -105,8 +105,7 @@ namespace SUGAR_CrossPlatform.iOS
                     targetHour = times[previousDayIndex].Hour;
                     targetMinute = times[previousDayIndex].Minute;
                     currentDayIndex += 0;
-                }
-                else if (days[currentDayIndex] && prof.StartTimes[currentDayIndex] < prof.EndTimes[currentDayIndex] && currentTimeOfDay < prof.EndTimes[currentDayIndex]) {
+                } else if (days[currentDayIndex] && prof.StartTimes[currentDayIndex] < prof.EndTimes[currentDayIndex] && currentTimeOfDay < prof.EndTimes[currentDayIndex]) {
                     // The first case is excluded, but the end time from today is later than now AND
                     // the end time from today does not reach tomorrow.
                     // -> Trigger today.
@@ -119,8 +118,8 @@ namespace SUGAR_CrossPlatform.iOS
                     targetMinute = times[currentDayIndex].Minute;
                     currentDayIndex += 1;
                 } else {
-                    // Now we don't have to trigger today
-                    // -> Push day index like above
+                    // Now we don't have to trigger some other day.
+                    // -> Push day index like above.
                     for (int i = 0; i < 7; i++) {
                         currentDayIndex = (currentDayIndex + 1) % 7;
                         if(days[currentDayIndex]) {
@@ -140,27 +139,6 @@ namespace SUGAR_CrossPlatform.iOS
             targetTime.SetValueForComponent(targetHour, NSCalendarUnit.Hour);
             targetTime.SetValueForComponent(targetMinute, NSCalendarUnit.Minute);
             return targetTime;
-        }
-
-        private NSWeekDay ToNSDay(DayOfWeek cSharpDay) {
-            switch(cSharpDay) {
-                case DayOfWeek.Monday:
-                    return NSWeekDay.Monday;
-                case DayOfWeek.Tuesday:
-                    return NSWeekDay.Tuesday;
-                case DayOfWeek.Wednesday:
-                    return NSWeekDay.Wednesday;
-                case DayOfWeek.Thursday:
-                    return NSWeekDay.Thursday;
-                case DayOfWeek.Friday:
-                    return NSWeekDay.Friday;
-                case DayOfWeek.Saturday:
-                    return NSWeekDay.Saturday;
-                case DayOfWeek.Sunday:
-                    return NSWeekDay.Sunday;
-                default:
-                    return NSWeekDay.Monday;
-            }
         }
 
         private NSWeekDay ToNSDay(int index) {

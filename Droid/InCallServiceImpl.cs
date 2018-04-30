@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 using Android.App;
 using Android.Content;
@@ -9,7 +8,7 @@ using Android.Media;
 namespace SUGAR_CrossPlatform.Droid
 {
     [Service(Label = "InCallServiceImpl")]
-    [IntentFilter(new String[] { "com.yourname.InCallServiceImpl" })]
+    [IntentFilter(new String[] { "de.unisiegen.InCallServiceImpl" })]
     public class InCallServiceImpl : InCallService
     {
         internal static bool shouldBlockAbsolutely = false;
@@ -39,6 +38,10 @@ namespace SUGAR_CrossPlatform.Droid
         private bool ShouldBlock(string number) {
             if(shouldBlockAbsolutely) {
                 return true;
+            }
+
+            if(number == null) {
+                return false;
             }
 
             ProfileManager mgr = new ProfileManager();

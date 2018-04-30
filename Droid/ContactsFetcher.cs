@@ -22,10 +22,7 @@ namespace SUGAR_CrossPlatform.Droid
             List<SUGARContact> allContacts = new List<SUGARContact>();
 
             // The idea is to go through all rows of the data cursor and remember the
-            // latest contact name. If the name of the next contact equals the name
-            // of the latest contact, the contact is stored more than once for some
-            // reason we don't want to investigate further.
-            // Then we just skip the row.
+            // latest contact.
 
             string latestContactName = null;
             SUGARContact latestContact = null;
