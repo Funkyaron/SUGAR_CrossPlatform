@@ -23,7 +23,7 @@ namespace SUGAR_CrossPlatform.iOS
 
             var content = new UNMutableNotificationContent();
             content.Title = "Profil: " + prof.Name;
-            content.Subtitle = "Anrufe sind jetzt erlaubt.";
+            content.Subtitle = "Anrufe sind jetzt verboten.";
             content.Body = "";
             content.UserInfo = new NSDictionary("ProfileName", prof.Name);
             content.Sound = UNNotificationSound.Default;
@@ -50,7 +50,7 @@ namespace SUGAR_CrossPlatform.iOS
 
             var content = new UNMutableNotificationContent();
             content.Title = "Profil: " + prof.Name;
-            content.Subtitle = "Anrufe sind jetzt verboten.";
+            content.Subtitle = "Anrufe sind jetzt erlaubt.";
             content.Body = "";
             content.UserInfo = new NSDictionary("ProfileName", prof.Name);
             content.Sound = UNNotificationSound.Default;
@@ -76,51 +76,69 @@ namespace SUGAR_CrossPlatform.iOS
 
             var days = prof.Days;
             TimeUnit[] times = null;
-            if(enable) {
-                times = prof.StartTimes;
-            } else {
-                times = prof.EndTimes;
-            }
 
             var currentDayIndex = ToIndex(now.DayOfWeek);
             var currentTimeOfDay = new TimeUnit(now.Hour, now.Minute);
 
-            if (!days[currentDayIndex] || currentTimeOfDay >= times[currentDayIndex])
-            {
-                for (int i = 0; i < 7; i++)
-                {
-                    currentDayIndex = (currentDayIndex + 1) % 7;
-                    if (days[currentDayIndex])
-                    {
-                        break;
+            int targetHour;
+            int targetMinute;
+
+            if(enable) {
+                times = prof.StartTimes;
+                // Push the current day index forward until we reach the target day of week
+                if (!days[currentDayIndex] || currentTimeOfDay >= times[currentDayIndex]) {
+                    for (int i = 0; i < 7; i++) {
+                        currentDayIndex = (currentDayIndex + 1) % 7;
+                        if (days[currentDayIndex]) {
+                            break;
+                        }
+                    }
+                }
+                targetHour = times[currentDayIndex].Hour;
+                targetMinute = times[currentDayIndex].Minute;
+            } else {
+                times = prof.EndTimes;
+                int previousDayIndex = ((currentDayIndex - 1) % 7 + 7) % 7;
+                if (days[previousDayIndex] && prof.EndTimes[previousDayIndex] < prof.StartTimes[previousDayIndex] && currentTimeOfDay < prof.EndTimes[previousDayIndex]) {
+                    // Now the end time from the previous day reaches today AND the time is later than now
+                    // -> Trigger today. But take the end time from "yesterday".
+                    targetHour = times[previousDayIndex].Hour;
+                    targetMinute = times[previousDayIndex].Minute;
+                    currentDayIndex += 0;
+                } else if (days[currentDayIndex] && prof.StartTimes[currentDayIndex] < prof.EndTimes[currentDayIndex] && currentTimeOfDay < prof.EndTimes[currentDayIndex]) {
+                    // The first case is excluded, but the end time from today is later than now AND
+                    // the end time from today does not reach tomorrow.
+                    // -> Trigger today.
+                    targetHour = times[currentDayIndex].Hour;
+                    targetMinute = times[currentDayIndex].Minute;
+                    currentDayIndex += 0;
+                } else if(days[currentDayIndex] && prof.EndTimes[currentDayIndex] < prof.StartTimes[currentDayIndex]) {
+                    // Now we have to trigger tomorrow with the end time from today.
+                    targetHour = times[currentDayIndex].Hour;
+                    targetMinute = times[currentDayIndex].Minute;
+                    currentDayIndex += 1;
+                } else {
+                    // Now we don't have to trigger some other day.
+                    // -> Push day index like above.
+                    for (int i = 0; i < 7; i++) {
+                        currentDayIndex = (currentDayIndex + 1) % 7;
+                        if(days[currentDayIndex]) {
+                            break;
+                        }
+                    }
+                    targetHour = times[currentDayIndex].Hour;
+                    targetMinute = times[currentDayIndex].Minute;
+                    if(prof.EndTimes[currentDayIndex] < prof.StartTimes[currentDayIndex]) {
+                        // The end time from the target day of week reaches the next day.
+                        currentDayIndex = (currentDayIndex + 1) % 7;
                     }
                 }
             }
-            targetTime.SetValueForComponent((int) ToNSDay(currentDayIndex), NSCalendarUnit.Weekday);
-            targetTime.SetValueForComponent(times[currentDayIndex].Hour, NSCalendarUnit.Hour);
-            targetTime.SetValueForComponent(times[currentDayIndex].Minute, NSCalendarUnit.Minute);
-            return targetTime;
-        }
 
-        private NSWeekDay ToNSDay(DayOfWeek cSharpDay) {
-            switch(cSharpDay) {
-                case DayOfWeek.Monday:
-                    return NSWeekDay.Monday;
-                case DayOfWeek.Tuesday:
-                    return NSWeekDay.Tuesday;
-                case DayOfWeek.Wednesday:
-                    return NSWeekDay.Wednesday;
-                case DayOfWeek.Thursday:
-                    return NSWeekDay.Thursday;
-                case DayOfWeek.Friday:
-                    return NSWeekDay.Friday;
-                case DayOfWeek.Saturday:
-                    return NSWeekDay.Saturday;
-                case DayOfWeek.Sunday:
-                    return NSWeekDay.Sunday;
-                default:
-                    return NSWeekDay.Monday;
-            }
+            targetTime.SetValueForComponent((int) ToNSDay(currentDayIndex), NSCalendarUnit.Weekday);
+            targetTime.SetValueForComponent(targetHour, NSCalendarUnit.Hour);
+            targetTime.SetValueForComponent(targetMinute, NSCalendarUnit.Minute);
+            return targetTime;
         }
 
         private NSWeekDay ToNSDay(int index) {

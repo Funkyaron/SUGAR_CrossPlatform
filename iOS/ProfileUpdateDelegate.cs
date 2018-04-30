@@ -30,10 +30,10 @@ namespace SUGAR_CrossPlatform.iOS
 
             string id = notification.Request.Identifier;
             if(id.Contains("Enable")) {
-                prof.Allowed = true;
+                prof.Allowed = false;
                 scheduler.ScheduleNextEnable(prof);
             } else if(id.Contains("Disable")) {
-                prof.Allowed = false;
+                prof.Allowed = true;
                 scheduler.ScheduleNextDisable(prof);
             } else {
                 return;

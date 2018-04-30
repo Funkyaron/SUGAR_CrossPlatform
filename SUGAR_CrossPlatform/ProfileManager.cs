@@ -171,28 +171,32 @@ namespace SUGAR_CrossPlatform
 
                 // Find out if the Profile is currently enabled or disabled
                 DateTime now = DateTime.Now;
-                DayOfWeek currentDay = now.DayOfWeek;
-                int currentDayIndex = ToIndex(currentDay);
+                int currentDayIndex = ToIndex(now.DayOfWeek);
+                int previousDayIndex = ((currentDayIndex - 1) % 7 + 7) % 7;
+                TimeUnit currentTimeOfDay = new TimeUnit(now.Hour, now.Minute);
 
-                if (prof.Days[currentDayIndex] == false)
+                if (prof.Days[previousDayIndex] && prof.EndTimes[previousDayIndex] < prof.StartTimes[previousDayIndex] 
+                    && currentTimeOfDay < prof.EndTimes[previousDayIndex])
                 {
+                    // Profile is enabled
+                    prof.Allowed = false;
+                }
+                else if(prof.Days[currentDayIndex] && prof.StartTimes[currentDayIndex] < prof.EndTimes[currentDayIndex] 
+                        && prof.StartTimes[currentDayIndex] < currentTimeOfDay && currentTimeOfDay < prof.EndTimes[currentDayIndex])
+                {
+                    // Profile is enabled
+                    prof.Allowed = false;
+                }
+                else if(prof.Days[currentDayIndex] && prof.EndTimes[currentDayIndex] < prof.StartTimes[currentDayIndex]
+                        && prof.StartTimes[currentDayIndex] < currentTimeOfDay)
+                {
+                    // Profile is enabled
                     prof.Allowed = false;
                 }
                 else
                 {
-                    TimeUnit currentTime = new TimeUnit(now.Hour, now.Minute);
-                    TimeUnit startTime = prof.StartTimes[currentDayIndex];
-                    TimeUnit endTime = prof.EndTimes[currentDayIndex];
-
-                    if (startTime <= currentTime && currentTime < endTime)
-                    {
-                        // The current time lies in the allowed time span.
-                        prof.Allowed = true;
-                    }
-                    else
-                    {
-                        prof.Allowed = false;
-                    }
+                    // Profile is disabled.
+                    prof.Allowed = true;
                 }
 
                 SaveProfile(prof);
