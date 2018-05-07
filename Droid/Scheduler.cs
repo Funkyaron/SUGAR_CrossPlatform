@@ -13,6 +13,7 @@ namespace SUGAR_CrossPlatform.Droid
     public class Scheduler : IScheduler
     {
         private AlarmManager mAlarmManager = null;
+
         public Scheduler()
         {
         }
@@ -142,6 +143,25 @@ namespace SUGAR_CrossPlatform.Droid
 
             return cal.TimeInMillis;
         }
+
+
+
+
+
+
+        public void ScheduleNextClosingTime(DayOfWeek day, TimeUnit time) {
+            
+        }
+
+        public void CancelClosingTime(DayOfWeek day) {
+            
+        }
+
+
+
+
+
+
 
         private int ToIndex(int calendarDay) {
             switch(calendarDay) {

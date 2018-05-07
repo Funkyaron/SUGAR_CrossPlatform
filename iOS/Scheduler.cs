@@ -29,7 +29,7 @@ namespace SUGAR_CrossPlatform.iOS
             content.Sound = UNNotificationSound.Default;
 
             var targetTime = GetTargetTime(prof, true);
-            var trigger = UNCalendarNotificationTrigger.CreateTrigger(targetTime, false);
+            var trigger = UNCalendarNotificationTrigger.CreateTrigger(targetTime, repeats: false);
             var requestID = prof.Name + "Enable";
             var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
 
@@ -56,7 +56,7 @@ namespace SUGAR_CrossPlatform.iOS
             content.Sound = UNNotificationSound.Default;
 
             var targetTime = GetTargetTime(prof, false);
-            var trigger = UNCalendarNotificationTrigger.CreateTrigger(targetTime, false);
+            var trigger = UNCalendarNotificationTrigger.CreateTrigger(targetTime, repeats: false);
             var requestID = prof.Name + "Disable";
             var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
 
@@ -141,45 +141,77 @@ namespace SUGAR_CrossPlatform.iOS
             return targetTime;
         }
 
+
+
+
+
+
+        public void ScheduleNextClosingTime(DayOfWeek day, TimeUnit time) {
+            var content = new UNMutableNotificationContent();
+            content.Title = "Feierabend!";
+            content.Subtitle = "Mach mal Pause";
+            content.Body = "";
+
+            var targetTime = new NSDateComponents();
+            targetTime.SetValueForComponent((int)ToNSDay(day), NSCalendarUnit.Weekday);
+            targetTime.SetValueForComponent(time.Hour, NSCalendarUnit.Hour);
+            targetTime.SetValueForComponent(time.Minute, NSCalendarUnit.Minute);
+
+            var trigger = UNCalendarNotificationTrigger.CreateTrigger(targetTime, repeats: true);
+            string requestID = day + "ClosingTime";
+            var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
+
+            UNUserNotificationCenter.Current.RemovePendingNotificationRequests(new string[] { requestID });
+            UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) => { });
+        }
+
+        public void CancelClosingTime(DayOfWeek day) {
+            var requests = new string[] { day + "ClosingTime" };
+            UNUserNotificationCenter.Current.RemovePendingNotificationRequests(requests);
+        }
+
+
+
+
+
+
+
         private NSWeekDay ToNSDay(int index) {
             switch(index) {
-                case 0:
-                    return NSWeekDay.Monday;
-                case 1:
-                    return NSWeekDay.Tuesday;
-                case 2:
-                    return NSWeekDay.Wednesday;
-                case 3:
-                    return NSWeekDay.Thursday;
-                case 4:
-                    return NSWeekDay.Friday;
-                case 5:
-                    return NSWeekDay.Saturday;
-                case 6:
-                    return NSWeekDay.Sunday;
-                default:
-                    return NSWeekDay.Monday;
+                case 0: return NSWeekDay.Monday;
+                case 1: return NSWeekDay.Tuesday;
+                case 2: return NSWeekDay.Wednesday;
+                case 3: return NSWeekDay.Thursday;
+                case 4: return NSWeekDay.Friday;
+                case 5: return NSWeekDay.Saturday;
+                case 6: return NSWeekDay.Sunday;
+                default: return NSWeekDay.Monday;
+            }
+        }
+
+        private NSWeekDay ToNSDay(DayOfWeek cSharpDay) {
+            switch(cSharpDay) {
+                case DayOfWeek.Monday: return NSWeekDay.Monday;
+                case DayOfWeek.Tuesday: return NSWeekDay.Tuesday;
+                case DayOfWeek.Wednesday: return NSWeekDay.Wednesday;
+                case DayOfWeek.Thursday: return NSWeekDay.Thursday;
+                case DayOfWeek.Friday: return NSWeekDay.Friday;
+                case DayOfWeek.Saturday: return NSWeekDay.Saturday;
+                case DayOfWeek.Sunday: return NSWeekDay.Sunday;
+                default: return NSWeekDay.Monday;
             }
         }
 
         private int ToIndex(DayOfWeek cSharpDay) {
             switch(cSharpDay) {
-                case DayOfWeek.Monday:
-                    return 0;
-                case DayOfWeek.Tuesday:
-                    return 1;
-                case DayOfWeek.Wednesday:
-                    return 2;
-                case DayOfWeek.Thursday:
-                    return 3;
-                case DayOfWeek.Friday:
-                    return 4;
-                case DayOfWeek.Saturday:
-                    return 5;
-                case DayOfWeek.Sunday:
-                    return 6;
-                default:
-                    return 0;
+                case DayOfWeek.Monday: return 0;
+                case DayOfWeek.Tuesday: return 1;
+                case DayOfWeek.Wednesday: return 2;
+                case DayOfWeek.Thursday: return 3;
+                case DayOfWeek.Friday: return 4;
+                case DayOfWeek.Saturday: return 5;
+                case DayOfWeek.Sunday: return 6;
+                default: return 0;
             }
         }
     }

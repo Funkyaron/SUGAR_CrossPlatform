@@ -27,8 +27,6 @@ namespace SUGAR_CrossPlatform.iOS
 
             UNUserNotificationCenter.Current.Delegate = new ProfileUpdateDelegate();
 
-            // new CNContactStore().RequestAccess(CNEntityType.Contacts, (granted, error) => { });
-
             LoadApplication(new App());
 
             new CNContactStore().RequestAccess(CNEntityType.Contacts, (granted, error) => { });

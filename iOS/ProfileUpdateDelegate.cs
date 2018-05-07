@@ -19,42 +19,44 @@ namespace SUGAR_CrossPlatform.iOS
 
         public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
         {
-            ProfileManager mgr = new ProfileManager();
-            Scheduler scheduler = new Scheduler();
+            if(notification.Request.Identifier.Contains("ClosingTime") == false) {
+                ProfileManager mgr = new ProfileManager();
+                Scheduler scheduler = new Scheduler();
 
-            var info = notification.Request.Content.UserInfo;
-            NSString profileName = (NSString) info.ValueForKey(new NSString("ProfileName"));
-            Profile prof = mgr.GetProfile(profileName);
+                var info = notification.Request.Content.UserInfo;
+                NSString profileName = (NSString) info.ValueForKey(new NSString("ProfileName"));
+                Profile prof = mgr.GetProfile(profileName);
 
-            if (prof == null || !prof.Active) return;
+                if (prof == null || !prof.Active) return;
 
-            string id = notification.Request.Identifier;
-            if(id.Contains("Enable")) {
-                prof.Allowed = false;
-                scheduler.ScheduleNextEnable(prof);
-            } else if(id.Contains("Disable")) {
-                prof.Allowed = true;
-                scheduler.ScheduleNextDisable(prof);
-            } else {
-                return;
+                string id = notification.Request.Identifier;
+                if(id.Contains("Enable")) {
+                    prof.Allowed = false;
+                    scheduler.ScheduleNextEnable(prof);
+                } else if(id.Contains("Disable")) {
+                    prof.Allowed = true;
+                    scheduler.ScheduleNextDisable(prof);
+                } else {
+                    return;
+                }
+
+                mgr.SaveProfile(prof);
+
+                var callDirManager = CXCallDirectoryManager.SharedInstance;
+                callDirManager.ReloadExtension(
+                    "de.unisiegen.SUGAR-CrossPlatform.PhoneBlockExtension",
+                   error =>
+                   {
+                       if (error == null)
+                       {
+                           // Everything's fine.
+                       }
+                       else
+                       {
+                           // An error occured. But what to do with it?
+                       }
+                   });
             }
-
-            mgr.SaveProfile(prof);
-
-            var callDirManager = CXCallDirectoryManager.SharedInstance;
-            callDirManager.ReloadExtension(
-                "de.unisiegen.SUGAR-CrossPlatform.PhoneBlockExtension",
-               error =>
-               {
-                   if (error == null)
-                   {
-                       // Everything's fine.
-                   }
-                   else
-                   {
-                       // An error occured. But what to do with it?
-                   }
-               });
 
             completionHandler(UNNotificationPresentationOptions.Alert);
         }

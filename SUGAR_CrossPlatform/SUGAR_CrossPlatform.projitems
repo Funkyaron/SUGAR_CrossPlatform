@@ -30,6 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ProfileCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IContactsFetcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SUGARContact.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ClosingTimeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)power_on.png" />
