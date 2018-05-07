@@ -1,7 +1,7 @@
 ﻿using System;
 namespace SUGAR_CrossPlatform
 {
-    public struct TimeUnit
+    public class TimeUnit
     {
         public TimeUnit(int hour, int minute)
         {
@@ -40,10 +40,16 @@ namespace SUGAR_CrossPlatform
         }
 
         public static bool operator == (TimeUnit left, TimeUnit right) {
+            if(right is null) {
+                return left is null;
+            }
             return left.Hour == right.Hour && left.Minute == right.Minute;
         }
 
         public static bool operator != (TimeUnit left, TimeUnit right) {
+            if(right is null) {
+                return !(left is null);
+            }
             return left.Hour != right.Hour || left.Minute != right.Minute;
         }
 
