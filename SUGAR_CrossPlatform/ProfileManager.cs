@@ -38,8 +38,6 @@ namespace SUGAR_CrossPlatform
 
                 writer.WriteElementString("Name", prof.Name);
 
-                //CreateError();
-
                 writer.WriteStartElement("Days");
                 foreach (bool day in prof.Days)
                 {
@@ -142,6 +140,7 @@ namespace SUGAR_CrossPlatform
             return ReadProfile(Path.Combine(GetFolderPath(), name + ".xml"));
         }
 
+        // If there is a file that is not a valid profile, it is just skipped.
         public Profile[] GetAllProfiles()
         {
             List<Profile> readProfiles = new List<Profile>();
@@ -243,6 +242,7 @@ namespace SUGAR_CrossPlatform
         }
 
 
+        // Returns null if an error occurs while reading.
         private Profile ReadProfile(string path)
         {
             _rwl.EnterReadLock();
@@ -292,21 +292,30 @@ namespace SUGAR_CrossPlatform
                 List<string> phoneNumbersAsStrings = new List<string>();
                 reader.ReadStartElement();
                 while(reader.Name == "PhoneNumberString") {
-                    phoneNumbersAsStrings.Add(reader.ReadElementContentAsString());
+                    string readNumber = reader.ReadElementContentAsString();
+                    if (!string.IsNullOrEmpty(readNumber)) {
+                        phoneNumbersAsStrings.Add(readNumber);
+                    }
                 }
                 reader.ReadEndElement();
 
                 List<long> phoneNumbersAsLongs = new List<long>();
                 reader.ReadStartElement();
                 while(reader.Name == "PhoneNumberLong") {
-                    phoneNumbersAsLongs.Add(reader.ReadElementContentAsLong());
+                    string readNumber = reader.ReadElementContentAsString();
+                    if (!string.IsNullOrEmpty(readNumber)) {
+                        phoneNumbersAsLongs.Add(long.Parse(readNumber));
+                    }
                 }
                 reader.ReadEndElement();
 
                 List<string> contactNames = new List<string>();
                 reader.ReadStartElement();
                 while(reader.Name == "ContactName") {
-                    contactNames.Add(reader.ReadElementContentAsString());
+                    string readName = reader.ReadElementContentAsString();
+                    if (!string.IsNullOrEmpty(readName)) {
+                        contactNames.Add(readName);
+                    }
                 }
                 reader.ReadEndElement();
 
@@ -325,15 +334,12 @@ namespace SUGAR_CrossPlatform
                     phoneNumbersAsLongs,
                     contactNames
                 );
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
+            } catch(Exception e) {
+                Console.WriteLine(e);
                 result = null;
             }
             reader?.Close();
             _rwl.ExitReadLock();
-
             return result;
         }
 
@@ -379,11 +385,6 @@ namespace SUGAR_CrossPlatform
                 default:
                     return DayOfWeek.Monday;
             }
-        }
-
-        private void CreateError()
-        {
-            throw new Exception("Haha");
         }
     }
 }
