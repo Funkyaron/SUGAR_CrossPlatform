@@ -2,6 +2,7 @@
 using System.Net;
 using System.IO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 #if __IOS__
 using Foundation;
@@ -15,9 +16,19 @@ namespace SUGAR_CrossPlatform
         {
         }
 
-        public bool RetrieveFiles(string userName, string password) {
+		// Use this method like this:
+        //
+		// Task<bool> downloadFilesTask = ftpDownloader.RetrieveFilesAsync(username, password);
+		// DoSomeOtherStuff(); like telling the user that the app is downloading
+		// bool success = await downloadFilesTask;
+        //
+		// if(success)...
+        //
+        public async Task<bool> RetrieveFilesAsync(string userName, string password) {
             bool isSuccessful = false;
-
+			FtpWebResponse response = null;
+			Stream responseStream = null;
+			StreamReader directoryReader = null;
 			try {
 				FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://ftp.strato.com/%2F/SUGAR-CrossPlatform/SUGAR-CrossPlatform");
 				request.Credentials = new NetworkCredential(userName, password);
@@ -25,11 +36,11 @@ namespace SUGAR_CrossPlatform
 				request.KeepAlive = false;
 				request.UseBinary = true;
 				request.UsePassive = true;
-
-				FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-				Stream responseStream = response.GetResponseStream();
-				StreamReader directoryReader = new StreamReader(responseStream);
-
+                
+				response = (FtpWebResponse)request.GetResponse();
+				responseStream = response.GetResponseStream();
+				directoryReader = new StreamReader(responseStream);
+                
 				List<string> fileNames = new List<string>();
 				directoryReader.ReadLine(); // skip ".." directory
 				string line = directoryReader.ReadLine();
@@ -38,23 +49,23 @@ namespace SUGAR_CrossPlatform
 					line = directoryReader.ReadLine();
 				}
 
-				directoryReader.Close();
-				responseStream.Close();
-				response.Close();
-
 				foreach (string fileName in fileNames) {
 					WebClient ftpClient = new WebClient();
 					ftpClient.Credentials = new NetworkCredential(userName, password);
 					string remotePath = "ftp://ftp.strato.com/%2F/SUGAR-CrossPlatform/" + fileName;
 				    string localPath = Path.Combine(GetFolderPath(), fileName);
 					if (!File.Exists(localPath)) {
-						ftpClient.DownloadFile(remotePath, localPath);
+						await ftpClient.DownloadFileTaskAsync(remotePath, localPath);
 					}
 				}
 				isSuccessful = true;
 			} catch(Exception e) {
 				e.ToString();
 				isSuccessful = false;
+			} finally {
+				directoryReader?.Close();
+                responseStream?.Close();
+                response?.Close();
 			}
 
             return isSuccessful;
