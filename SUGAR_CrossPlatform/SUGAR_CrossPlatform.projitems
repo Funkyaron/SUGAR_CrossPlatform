@@ -43,5 +43,22 @@
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)IScheduler.cs" />
+    <None Include="$(MSBuildThisFileDirectory)CreateProfileView.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)DoNotDisturbScreen.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)EditProfilePage.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Add.png" />
+    <None Include="$(MSBuildThisFileDirectory)Delete.png" />
+    <None Include="$(MSBuildThisFileDirectory)Download.png" />
+    <None Include="$(MSBuildThisFileDirectory)manager.png" />
+    <None Include="$(MSBuildThisFileDirectory)Menu_Alternative.png" />
+    <None Include="$(MSBuildThisFileDirectory)nomobilephonesallowed.png" />
+    <None Include="$(MSBuildThisFileDirectory)play.png" />
+    <None Include="$(MSBuildThisFileDirectory)plus.png" />
+    <None Include="$(MSBuildThisFileDirectory)PowerOff.png" />
+    <None Include="$(MSBuildThisFileDirectory)PowerOn.png" />
+    <None Include="$(MSBuildThisFileDirectory)sleep.png" />
+    <None Include="$(MSBuildThisFileDirectory)sleepyworker.png" />
+    <None Include="$(MSBuildThisFileDirectory)stop.png" />
+    <None Include="$(MSBuildThisFileDirectory)sugar.png" />
   </ItemGroup>
 </Project>
