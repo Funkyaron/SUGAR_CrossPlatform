@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SUGAR_CrossPlatform.OverviewPage">
-	<ContentPage.Content>
-        <ScrollView>
-            <ListView x:Name="profilesList" 
-                      SeparatorColor="black" 
-                      RowHeight="80">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollView>
-	</ContentPage.Content>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" Margin="275,10,0,10">
+                <Image x:Name="AddProfile" WidthRequest="25" HeightRequest="25" BackgroundColor="White"/> 
+                <Image x:Name="DeleteProfile" WidthRequest="25" HeightRequest="25" BackgroundColor="White"/>
+                <Image x:Name="DownloadProfile" WidthRequest="25" HeightRequest="25" BackgroundColor="White"/>
+            </StackLayout>
+            <ScrollView x:Name="container">
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

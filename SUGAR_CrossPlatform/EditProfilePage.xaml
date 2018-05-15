@@ -11,7 +11,7 @@
             <Label
                 Text="Wann möchten Sie nicht erreichbar sein?"
                 HorizontalOptions="Center"/>
-            <Grid ColumnSpacing="0" RowSpacing="0" Margin="20,40,20,0">
+            <Grid x:Name="ActivationTable" ColumnSpacing="0" RowSpacing="0" Margin="20,40,20,0">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -28,7 +28,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>   
 
-                                <Button x:Name="SelectMonday" Grid.Row="0" Grid.Column="0" Text="MO" TextColor="Black" BorderWidth="1" BorderColor="Black" BorderRadius="0"/>
+                <Button x:Name="SelectMonday" Grid.Row="0" Grid.Column="0" Text="MO" TextColor="Black" BorderWidth="1" BorderColor="Black" BorderRadius="0"/>
                 <Button x:Name="SelectTuesday" Grid.Row="0" Grid.Column="1" Text="DI" TextColor="Black" BorderWidth="1" BorderColor="Black" BorderRadius="0"/>
                 <Button x:Name="SelectWednesday" Grid.Row="0" Grid.Column="2" Text="MI" TextColor="Black" BorderWidth="1" BorderColor="Black" BorderRadius="0"/>
                 <Button x:Name="SelectThursday" Grid.Row="0" Grid.Column="3" Text="DO" TextColor="Black" BorderWidth="1" BorderColor="Black" BorderRadius="0"/>
@@ -36,7 +36,7 @@
                 <Button x:Name="SelectSaturday" Grid.Row="0" Grid.Column="5" Text="SA" TextColor="Black" BorderWidth="1" BorderColor="Black" BorderRadius="0"/>
                 <Button x:Name="SelectSunday" Grid.Row="0" Grid.Column="6" Text="SO" TextColor="Black" BorderWidth="1" BorderColor="Black" BorderRadius="0"/>
                 <Button x:Name="ActivateMonday" Grid.Row="1" Grid.Column="0" BorderColor="Black" BorderWidth="1" BorderRadius="0"/>
-                <Button x:Name="ActivateTuesaday" Grid.Row="1" Grid.Column="1" BorderColor="Black" BorderWidth="1" BorderRadius="0"/>
+                <Button x:Name="ActivateTuesday" Grid.Row="1" Grid.Column="1" BorderColor="Black" BorderWidth="1" BorderRadius="0"/>
                 <Button x:Name="ActivateWednesday" Grid.Row="1" Grid.Column="2" BorderColor="Black" BorderWidth="1" BorderRadius="0"/>
                 <Button x:Name="ActivateThursday" Grid.Row="1" Grid.Column="3" BorderColor="Black" BorderWidth="1" BorderRadius="0"/>
                 <Button x:Name="ActivateFriday" Grid.Row="1" Grid.Column="4" BorderColor="Black" BorderWidth="1" BorderRadius="0"/>
