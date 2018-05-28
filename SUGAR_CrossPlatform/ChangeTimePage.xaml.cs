@@ -7,9 +7,18 @@ namespace SUGAR_CrossPlatform
 {
     public partial class ChangeTimePage : ContentPage
     {
-        public ChangeTimePage(String weekDay,bool isStartTime)
+		private String[] weekDays = { "Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" };
+
+        public ChangeTimePage(int weekDay,bool isStartTime)
         {
             InitializeComponent();
+            if(isStartTime)
+			{
+				ChooseWeekDay.Text = "Wann soll das Profil \n am " + weekDays[weekDay] + " starten?";
+			} else if (!isStartTime)
+			{
+				ChooseWeekDay.Text = "Wann soll das Profil am " + weekDays[weekDay] + " enden?";
+			}
         }
     }
 }

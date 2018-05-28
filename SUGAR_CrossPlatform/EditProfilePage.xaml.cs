@@ -21,11 +21,7 @@ namespace SUGAR_CrossPlatform
 
             InitializeComponent();
 
-            NameLabel.TextChanged += (sender, e) =>
-            {
-                TemporaryProfile.Name = NameLabel.Text;
-                Console.WriteLine(TemporaryProfile.Name);
-            };
+			NameLabel.Text = name;
 
             ActivationPanel.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             ActivationPanel.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
@@ -66,6 +62,16 @@ namespace SUGAR_CrossPlatform
             var activateSunday = new Button() { Style = selectionStyle };
             Button[] selectionRow = { selectMonday, selectTuesday, selectWednesday, selectThursday, selectFriday, selectSaturday, selectSunday };
             Button[] activationRow = { activateMonday, activateTuesday, activateWednesday, activateThursday, activateFriday, activateSaturday, activateSunday };
+
+			NameLabel.Text = TemporaryProfile.Name;
+
+			for (int currentColumn = 0; currentColumn < activationRow.Length;currentColumn++)
+			{
+				if(TemporaryProfile.Days[currentColumn])
+				{
+					selectionRow[currentColumn].BackgroundColor = Color.Green;
+				}
+			}
 
             for (int currSelectionColumn = 0; currSelectionColumn < selectionRow.Length; currSelectionColumn++)
             {

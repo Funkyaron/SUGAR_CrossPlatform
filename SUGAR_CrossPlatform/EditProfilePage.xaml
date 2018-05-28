@@ -4,7 +4,7 @@
         <StackLayout
             Orientation="Vertical"
             Margin="0,25,0,0">
-            <Entry x:Name="NameLabel"
+            <Label x:Name="NameLabel"
                    HorizontalOptions="Center"
                    HorizontalTextAlignment="Center"
                    Text=""

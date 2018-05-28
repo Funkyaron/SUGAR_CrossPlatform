@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SUGAR_CrossPlatform.ChangeTimePage">
-    <ContentPage.Content Margin="0,25,0,0">
-        <Label x:Name="ChooseWeekDay" Text="Hello World!"/>
+    <ContentPage.Content>
+        <Label x:Name="ChooseWeekDay" Margin="25,75,25,0" Text="Hello World!" HorizontalOptions="Center" FontSize="25"/>
     </ContentPage.Content>
 </ContentPage>
