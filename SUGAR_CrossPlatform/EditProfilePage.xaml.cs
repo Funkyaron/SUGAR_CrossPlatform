@@ -67,7 +67,7 @@ namespace SUGAR_CrossPlatform
 			{
 				if(ToEditProfile.Days[currentColumn])
 				{
-					selectionRow[currentColumn].BackgroundColor = Color.Green;
+					activationRow[currentColumn].BackgroundColor = Color.Green;
 				}
 			}
 
