@@ -8,8 +8,6 @@ namespace SUGAR_CrossPlatform
     public partial class EditProfilePage : ContentPage
     {
 		private Profile ToEditProfile;
-		private ProfileManager creationMgr;
-        private Profile TemporaryProfile;
         private int selectDay;
         private ProfileManager ProfManager;
 
@@ -63,11 +61,11 @@ namespace SUGAR_CrossPlatform
             Button[] selectionRow = { selectMonday, selectTuesday, selectWednesday, selectThursday, selectFriday, selectSaturday, selectSunday };
             Button[] activationRow = { activateMonday, activateTuesday, activateWednesday, activateThursday, activateFriday, activateSaturday, activateSunday };
 
-			NameLabel.Text = TemporaryProfile.Name;
+			NameLabel.Text = ToEditProfile.Name;
 
 			for (int currentColumn = 0; currentColumn < activationRow.Length;currentColumn++)
 			{
-				if(TemporaryProfile.Days[currentColumn])
+				if(ToEditProfile.Days[currentColumn])
 				{
 					selectionRow[currentColumn].BackgroundColor = Color.Green;
 				}
@@ -82,12 +80,12 @@ namespace SUGAR_CrossPlatform
                     {
                         selectionRow[selectDay].BackgroundColor = Color.White;
                     }
-                    if (TemporaryProfile.Days[selectedColumn])
+                    if (ToEditProfile.Days[selectedColumn])
                     {
                         selectDay = selectedColumn;
                         selectionRow[selectedColumn].BackgroundColor = Color.Orange;
-                        StartTime.Text = "VON: " + TemporaryProfile.StartTimes[selectedColumn].ToString();
-                        EndTime.Text = "BIS: " + TemporaryProfile.EndTimes[selectedColumn].ToString();
+                        StartTime.Text = "VON: " + ToEditProfile.StartTimes[selectedColumn].ToString();
+                        EndTime.Text = "BIS: " + ToEditProfile.EndTimes[selectedColumn].ToString();
                         StartTime.IsVisible = true;
                         EndTime.IsVisible = true;
                     }
@@ -107,24 +105,24 @@ namespace SUGAR_CrossPlatform
                 int selectedColumn = currActivationColumn;
                 activationRow[selectedColumn].Clicked += (sender, e) =>
                 {
-                    if (!TemporaryProfile.Days[selectedColumn])
+                    if (!ToEditProfile.Days[selectedColumn])
                     {
                         activationRow[selectedColumn].BackgroundColor = Color.Green;
                         if (selectDay == selectedColumn)
                         {
-                            StartTime.Text = "VON: " + TemporaryProfile.StartTimes[selectedColumn].ToString();
-                            EndTime.Text = "BIS: " + TemporaryProfile.EndTimes[selectedColumn].ToString();
+                            StartTime.Text = "VON: " + ToEditProfile.StartTimes[selectedColumn].ToString();
+                            EndTime.Text = "BIS: " + ToEditProfile.EndTimes[selectedColumn].ToString();
                             StartTime.IsVisible = true;
                             EndTime.IsVisible = true;
                         }
-                        TemporaryProfile.Days[selectedColumn] = true;
+                        ToEditProfile.Days[selectedColumn] = true;
                     }
-                    else if (TemporaryProfile.Days[selectedColumn])
+                    else if (ToEditProfile.Days[selectedColumn])
                     {
                         activationRow[selectedColumn].BackgroundColor = Color.White;
                         StartTime.IsVisible = false;
                         EndTime.IsVisible = false;
-                        TemporaryProfile.Days[selectedColumn] = false;
+                        ToEditProfile.Days[selectedColumn] = false;
                     }
                 };
             }
@@ -146,9 +144,9 @@ namespace SUGAR_CrossPlatform
 
             Save.Clicked += (sender, e) =>
             {
-                TemporaryProfile.Name = (String)NameLabel.Text;
-                Console.WriteLine(TemporaryProfile.Name);
-                if (TemporaryProfile.Name == "")
+                ToEditProfile.Name = (String)NameLabel.Text;
+                Console.WriteLine(ToEditProfile.Name);
+                if (ToEditProfile.Name == "")
                 {
                     DisplayAlert("Achtung", "Ihr Profil enthält keinen Namen!", "OK");
                 }
