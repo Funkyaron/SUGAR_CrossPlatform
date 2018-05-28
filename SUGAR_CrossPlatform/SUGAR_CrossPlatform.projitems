@@ -31,6 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IContactsFetcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SUGARContact.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClosingTimeManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FTPDownloader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)power_on.png" />

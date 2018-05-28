@@ -8,7 +8,7 @@ namespace SUGAR_CrossPlatform
     {
         public Profile()
         {
-            Name = "";
+            Name = "Default";
 
             Days = new bool[7];
             for (int i = 0; i < Days.Length; i++) Days[i] = false;
