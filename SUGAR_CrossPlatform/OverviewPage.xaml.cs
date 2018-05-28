@@ -7,9 +7,13 @@ namespace SUGAR_CrossPlatform
 {
     public partial class OverviewPage : ContentPage
     {
+		private ProfileManager ProfManager;
+
 		public OverviewPage()
-		{
+		{         
 			InitializeComponent();
+
+			ProfManager = new ProfileManager();
 
 			var AddTapGestureRecognizer = new TapGestureRecognizer();
 			var DeleteTapGestureRecognizer = new TapGestureRecognizer();
@@ -18,17 +22,17 @@ namespace SUGAR_CrossPlatform
 			AddTapGestureRecognizer.Tapped += (s, e) =>
 			{
 				System.Console.WriteLine("It worked!");
-				Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage());
+				Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(new Profile()));
 			};
 
 			DeleteTapGestureRecognizer.Tapped += (s, e) =>
             {
-                Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage());
+                Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(new Profile()));
             };
 
 			DownloadTapGestureRecognizer.Tapped += (s, e) =>
             {
-                Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage());
+                Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(new Profile()));
             };
 
 			AddProfile.Source = ImageSource.FromResource("Add.png");
@@ -45,18 +49,12 @@ namespace SUGAR_CrossPlatform
 
 			ListView profList = new ListView()
 			{
-				ItemTemplate = customCell
+				ItemTemplate = customCell,
+				ItemsSource = ProfManager.GetAllProfiles()
 			};
 
 			profList.RowHeight = 100;
-
-			List<Profile> testProfiles = new List<Profile>
-			{
-				new Profile() { Name = "Kurz", Active = true },
-				new Profile() { Name = "Lang", Active = false }
-			};
-
-			profList.ItemsSource = testProfiles;
+            
 			profList.SeparatorVisibility = SeparatorVisibility.None;
 			profList.ItemSelected += (sender, e) =>
 			{

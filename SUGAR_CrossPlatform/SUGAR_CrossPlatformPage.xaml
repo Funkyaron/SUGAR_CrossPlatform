@@ -8,44 +8,44 @@
             <Label  Text="Willkommen bei SUGAR!"
                     FontSize="25"
                     HorizontalOptions="Center"
-                    Margin="0,100,0,0"/>
+                    Margin="0,50,0,0"/>
             <Label  Text="Was möchten Sie tun?"
                     FontSize="25"
                     HorizontalOptions="Center"
                     Margin="0,0,0,0"/>
             <Button x:Name="ShowProfiles"
                     Text="Profile anzeigen"
-                    FontSize="25"
+                    FontSize="15"
                     TextColor="Black"
                     HorizontalOptions="Center"
-                    Margin="0,125,0,0"
-                    WidthRequest="300"
+                    Margin="0,50,0,0"
+                    WidthRequest="225"
                     BorderWidth="0.5"
                     BorderRadius="10"
                     Clicked="OpenShowProfiles"
                     />
             <Button x:Name="DoNotDisturb"
                     Text="Ungestört Arbeiten"
-                    FontSize="25"
+                    FontSize="15"
                     TextColor="Black"
                     HorizontalOptions="Center"
                     Margin="0,1,0,0"
-                    WidthRequest="300"
+                    WidthRequest="225"
                     BorderWidth="0.5"
                     BorderRadius="10"
                     Clicked="OpenDoNotDisturb"
                     />
             <Button x:Name="ClosingTime"
                     Text="Feierabend"
-                    FontSize="25"
+                    FontSize="15"
                     TextColor="Black"
                     HorizontalOptions="Center"
                     Margin="0,1,0,0"
-                    WidthRequest="300"
+                    WidthRequest="225"
                     BorderWidth="0.5"
                     BorderRadius="10"
                     Clicked="OpenClosingTimes"/>
-            <Image x:Name="Logo" Scale="0.5"/>
+            <Image x:Name="Logo" Scale="0.25"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

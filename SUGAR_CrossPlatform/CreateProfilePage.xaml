@@ -19,26 +19,38 @@
             <Grid x:Name="ActivationPanel" 
                   ColumnSpacing="0" 
                   RowSpacing="0" 
-                  Margin="20,40,20,0">
+                  Margin="20,25,20,0">
             </Grid>
             
             <StackLayout Orientation="Horizontal">
                 <Button x:Name="StartTime" 
                         Margin="50,50,0,0" 
-                        TextColor="Black" 
+                        TextColor="Black"
+                        FontSize="13"
                         Text="VON:" 
                         BorderColor="Black" 
                         BorderWidth="1" 
                         BorderRadius="20" 
                         WidthRequest="120" 
-                        HeightRequest="70" 
+                        HeightRequest="50" 
                         IsVisible="false"/>
-                <Button x:Name="EndTime" Margin="25,50,0,0" TextColor="Black" Text="BIS:" BorderColor="Black" BorderWidth="1" BorderRadius="20" WidthRequest="120" HeightRequest="70" IsVisible="false"/>
+                <Button x:Name="EndTime" 
+                        Margin="20,50,0,0" 
+                        TextColor="Black"
+                        FontSize="13"
+                        Text="BIS:" 
+                        BorderColor="Black" 
+                        BorderWidth="1" 
+                        BorderRadius="20" 
+                        WidthRequest="120" 
+                        HeightRequest="50" 
+                        IsVisible="false"/>
             </StackLayout>
             <Button x:Name="Save" 
                     Margin="50,60,50,0" 
                     HeightRequest="50" 
                     TextColor="Black" 
+                    FontSize="13"
                     Text="Speichern und schließen" 
                     BorderColor="Black" 
                     BorderWidth="1" 
@@ -46,7 +58,8 @@
             <Button x:Name="Cancel" 
                     Margin="50,0,50,0" 
                     HeightRequest="50" 
-                    TextColor="Black" 
+                    TextColor="Black"
+                    FontSize="13"
                     Text="Abbrechen" 
                     BorderColor="Black" 
                     BorderWidth="1" 

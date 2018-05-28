@@ -42,6 +42,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ChangeTimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -63,6 +67,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)CheckBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CreateProfilePage.xaml.cs">
       <DependentUpon>CreateProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ChangeTimePage.xaml.cs">
+      <DependentUpon>ChangeTimePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
