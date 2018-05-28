@@ -144,12 +144,10 @@ namespace SUGAR_CrossPlatform
 
             Save.Clicked += (sender, e) =>
             {
-                ToEditProfile.Name = (String)NameLabel.Text;
-                Console.WriteLine(ToEditProfile.Name);
-                if (ToEditProfile.Name == "")
-                {
-                    DisplayAlert("Achtung", "Ihr Profil enthält keinen Namen!", "OK");
-                }
+				ProfManager.SaveProfile(ToEditProfile);
+				if(ToEditProfile.Active) {
+					ProfManager.InitProfile(ToEditProfile);
+				}
                 Application.Current.MainPage.Navigation.PopAsync();
             };
 
