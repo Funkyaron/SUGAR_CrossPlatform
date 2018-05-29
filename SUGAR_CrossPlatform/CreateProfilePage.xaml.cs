@@ -7,22 +7,22 @@ namespace SUGAR_CrossPlatform
 {
 	public partial class CreateProfilePage : ContentPage, IOnTimeChangedListener
 	{
-		private Profile TemporaryProfile;
+		private Profile CreatedProfile;
 		private int selectDay;
 		private ProfileManager ProfManager;
 
-		public CreateProfilePage(Profile passedProfile)
+		public CreateProfilePage(OverviewPage parentPage)
 		{
-			TemporaryProfile = new Profile();
+			CreatedProfile = new Profile();
 			selectDay = 0;
 			ProfManager = new ProfileManager();
-
+            
 			InitializeComponent();
 
-			NameLabel.TextChanged += (sender, e) =>
+			NameEntry.TextChanged += (sender, e) =>
 			{
-				TemporaryProfile.Name = NameLabel.Text;
-				Console.WriteLine(TemporaryProfile.Name);
+				CreatedProfile.Name = NameEntry.Text;
+				Console.WriteLine(CreatedProfile.Name);
 			};
 
 			ActivationPanel.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
@@ -64,7 +64,13 @@ namespace SUGAR_CrossPlatform
 			var activateSunday = new Button() { Style = selectionStyle };
 			Button[] selectionRow = { selectMonday, selectTuesday, selectWednesday, selectThursday, selectFriday, selectSaturday, selectSunday };
 			Button[] activationRow = { activateMonday,activateTuesday,activateWednesday,activateThursday,activateFriday,activateSaturday,activateSunday };
-            
+
+			for (int currentColumn = 0; currentColumn < activationRow.Length; currentColumn++) {
+				if(CreatedProfile.Days[currentColumn]) {
+					activationRow[currentColumn].BackgroundColor = Color.Green;
+				}
+			}
+
 			for (int currSelectionColumn = 0; currSelectionColumn < selectionRow.Length;currSelectionColumn++)
 			{
 				int selectedColumn = currSelectionColumn;
@@ -74,19 +80,19 @@ namespace SUGAR_CrossPlatform
                     {
                         selectionRow[selectDay].BackgroundColor = Color.White;
                     }
-					if (TemporaryProfile.Days[selectedColumn])
+					if (CreatedProfile.Days[selectedColumn])
 					{
 						selectDay = selectedColumn;
 						selectionRow[selectedColumn].BackgroundColor = Color.Orange;
-						StartTime.Text = "VON: " + TemporaryProfile.StartTimes[selectedColumn].ToString();
-						EndTime.Text = "BIS: " + TemporaryProfile.EndTimes[selectedColumn].ToString();
-						StartTime.IsVisible = true;
-						EndTime.IsVisible = true;
+						StartTimeButton.Text = "VON: " + CreatedProfile.StartTimes[selectedColumn].ToString();
+						EndTimeButton.Text = "BIS: " + CreatedProfile.EndTimes[selectedColumn].ToString();
+						StartTimeButton.IsVisible = true;
+						EndTimeButton.IsVisible = true;
 					} else { 
 						selectionRow[selectDay].BackgroundColor = Color.White;
 						selectionRow[selectedColumn].BackgroundColor = Color.Orange;
-						StartTime.IsVisible = false;
-                        EndTime.IsVisible = false;
+						StartTimeButton.IsVisible = false;
+						EndTimeButton.IsVisible = false;
 						selectDay = selectedColumn;
                     }
 				};
@@ -97,24 +103,27 @@ namespace SUGAR_CrossPlatform
 				int selectedColumn = currActivationColumn;
 				activationRow[selectedColumn].Clicked += (sender, e) =>
 				{
-					if (!TemporaryProfile.Days[selectedColumn])
+					if (!CreatedProfile.Days[selectedColumn])
 					{
 						activationRow[selectedColumn].BackgroundColor = Color.Green;
 						if (selectDay == selectedColumn)
 						{
-							StartTime.Text = "VON: " + TemporaryProfile.StartTimes[selectedColumn].ToString();
-							EndTime.Text = "BIS: " + TemporaryProfile.EndTimes[selectedColumn].ToString();
-							StartTime.IsVisible = true;
-							EndTime.IsVisible = true;
+							StartTimeButton.Text = "VON: " + CreatedProfile.StartTimes[selectedColumn].ToString();
+							EndTimeButton.Text = "BIS: " + CreatedProfile.EndTimes[selectedColumn].ToString();
+							StartTimeButton.IsVisible = true;
+							EndTimeButton.IsVisible = true;
 						}
-						TemporaryProfile.Days[selectedColumn] = true;
+						CreatedProfile.Days[selectedColumn] = true;
 					}
-					else if(TemporaryProfile.Days[selectedColumn])
+					else if(CreatedProfile.Days[selectedColumn])
 					{
 						activationRow[selectedColumn].BackgroundColor = Color.White;
-						StartTime.IsVisible = false;
-						EndTime.IsVisible = false;
-						TemporaryProfile.Days[selectedColumn] = false;
+						if (selectDay == selectedColumn)
+						{
+							StartTimeButton.IsVisible = false;
+							EndTimeButton.IsVisible = false;
+						}
+						CreatedProfile.Days[selectedColumn] = false;
 					}
 				};
 			}
@@ -134,29 +143,38 @@ namespace SUGAR_CrossPlatform
 			ActivationPanel.Children.Add(activateSaturday, 5, 1);
 			ActivationPanel.Children.Add(activateSunday, 6, 1);
             
+			StartTimeButton.Clicked += (sender, args) =>
+            {
+                Navigation.PushAsync(new ChangeTimePage(selectDay, CreatedProfile.StartTimes[selectDay], true, CreatedProfile, this));
+            };
+
+            EndTimeButton.Clicked += (sender, args) =>
+            {
+                Navigation.PushAsync(new ChangeTimePage(selectDay, CreatedProfile.EndTimes[selectDay], false, CreatedProfile, this));
+            };
+
 			Save.Clicked += (sender, e) =>
 			{
-				TemporaryProfile.Name = (String)NameLabel.Text;
-				Console.WriteLine(TemporaryProfile.Name);
-				if (TemporaryProfile.Name == "")
+				Console.WriteLine(CreatedProfile.Name);
+				if (CreatedProfile.Name == "")
 				{
-					DisplayAlert("Achtung", "Ihr Profil enthält keinen Namen!", "OK");
+					DisplayAlert("Achtung", "Bitte geben Sie einen Namen für das Profil ein.", "OK");
+					return;
 				}
-				ProfManager.SaveProfile(TemporaryProfile);
-				Application.Current.MainPage.Navigation.PopAsync();
-				Application.Current.MainPage.Navigation.PopAsync();
-				Application.Current.MainPage.Navigation.PushAsync(new OverviewPage());
+				ProfManager.SaveProfile(CreatedProfile);
+                parentPage.UpdateList();
+				Navigation.PopAsync();
 			};
 
 			Cancel.Clicked += (sender, e) =>
 			{
 				Application.Current.MainPage.Navigation.PopAsync();
-				DisplayAlert("Achtung", "Die Profilerstellung wurde abgebrochen!", "OK");
 			};
         }
 
 		public void OnTimeChanged() {
-			
+			StartTimeButton.Text = "VON: " + CreatedProfile.StartTimes[selectDay];
+			EndTimeButton.Text = "BIS: " + CreatedProfile.EndTimes[selectDay];
 		}
     }
 

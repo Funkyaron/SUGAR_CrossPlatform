@@ -8,6 +8,7 @@ namespace SUGAR_CrossPlatform
     public partial class OverviewPage : ContentPage
     {
 		private ProfileManager ProfManager;
+		private ListView profList;
 
 		public OverviewPage()
 		{         
@@ -21,18 +22,15 @@ namespace SUGAR_CrossPlatform
 
 			AddTapGestureRecognizer.Tapped += (s, e) =>
 			{
-				System.Console.WriteLine("It worked!");
-				Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(new Profile()));
+				Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(this));
 			};
 
 			DeleteTapGestureRecognizer.Tapped += (s, e) =>
             {
-                Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(new Profile()));
             };
 
 			DownloadTapGestureRecognizer.Tapped += (s, e) =>
             {
-                Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(new Profile()));
             };
 
 			AddProfile.Source = ImageSource.FromResource("Add.png");
@@ -48,7 +46,7 @@ namespace SUGAR_CrossPlatform
 			customCell.SetBinding(ProfileCell.ActiveProperty, "Active");
 			customCell.SetBinding(ProfileCell.AllowedProperty, "Allowed");
 
-			ListView profList = new ListView()
+			profList = new ListView()
 			{
 				ItemTemplate = customCell,
 				ItemsSource = ProfManager.GetAllProfiles() // Input is Profile, so it will look for property in Profile class
@@ -62,6 +60,11 @@ namespace SUGAR_CrossPlatform
 				((ListView)sender).SelectedItem = null;
 			};
 
+			container.Content = profList;
+		}
+
+		public void UpdateList() {
+			profList.ItemsSource = ProfManager.GetAllProfiles();
 			container.Content = profList;
 		}
     }
