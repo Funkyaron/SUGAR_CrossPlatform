@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace SUGAR_CrossPlatform
 {
-    public partial class EditProfilePage : ContentPage
+	public partial class EditProfilePage : ContentPage, IOnTimeChangedListener
     {
 		private Profile ToEditProfile;
         private int selectDay;
@@ -159,5 +159,10 @@ namespace SUGAR_CrossPlatform
                 DisplayAlert("Achtung", "Die Profilerstellung wurde abgebrochen!", "OK");
             };
         }
+
+		public void OnTimeChanged() {
+			// Update views
+			// Don't Save profile ;)
+		}
     }
 }

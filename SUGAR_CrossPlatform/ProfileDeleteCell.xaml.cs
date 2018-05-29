@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace SUGAR_CrossPlatform
 {
-
+    /*
     public partial class ProfileDeleteCell : ContentPage
     {
 		Frame container;
@@ -71,6 +71,5 @@ namespace SUGAR_CrossPlatform
                 }            
             }
         }
-        }
-    }
+        } */
 }

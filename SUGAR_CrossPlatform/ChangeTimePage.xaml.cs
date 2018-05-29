@@ -10,16 +10,20 @@ namespace SUGAR_CrossPlatform
 		private String[] weekDays = { "Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" };
 		private ProfileManager ProfManager;
 		private bool InvalidTime;
+		private bool OverflowingDayActive;
 		private bool LastWeekDay;
 		private TimeUnit[] currentDayTimeSpan;
 		private TimeUnit[] previousDayTimeSpan;
-
-        public ChangeTimePage(int weekDay,TimeUnit oldTime,bool isStartTime,bool existingProfile,Profile passedProfile)
+        
+		public ChangeTimePage(int weekDay,TimeUnit oldTime,bool isStartTime,bool existingProfile,Profile passedProfile, IOnTimeChangedListener listener)
         {
             InitializeComponent();
 
+			ChooseWeekDayTime.Format = "HH:mm";
+            
 			InvalidTime = false;
-
+			LastWeekDay = false;
+            
             if(isStartTime)
 			{
 				ChooseWeekDay.Text = "Wann soll das Profil \n am " + weekDays[weekDay] + " starten?";
@@ -32,17 +36,8 @@ namespace SUGAR_CrossPlatform
 
 			Confirm.Clicked += (sender, e) =>
 			{
-				if (LastWeekDay)
-				{
-				} else if(!LastWeekDay)
-				{
-				}
-				Application.Current.MainPage.Navigation.PopAsync();
-				Application.Current.MainPage.Navigation.PopAsync();
-				if (existingProfile)
-					Application.Current.MainPage.Navigation.PushAsync(new EditProfilePage(passedProfile.Name));
-				else
-					Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(passedProfile));
+				//...
+				listener.OnTimeChanged();
 			};
            
 

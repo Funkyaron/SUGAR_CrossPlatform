@@ -78,6 +78,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ProfileDeleteCell.xaml.cs">
       <DependentUpon>ProfileDeleteCell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)IOnTimeChangedListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ProfileManager.cs" />
