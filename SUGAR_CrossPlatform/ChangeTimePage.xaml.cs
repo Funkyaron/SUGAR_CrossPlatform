@@ -19,9 +19,6 @@ namespace SUGAR_CrossPlatform
             InitializeComponent();
 
 			InvalidTime = false;
-            
-			ProfManager = new ProfileManager();
-			LastWeekDay = (weekDay == 6);
 
             if(isStartTime)
 			{
@@ -34,7 +31,7 @@ namespace SUGAR_CrossPlatform
 			ChooseWeekDayTime.Time = new TimeSpan(oldTime.Hour,oldTime.Minute,0);
 
 			Confirm.Clicked += (sender, e) =>
-			{}
+			{
 				if (LastWeekDay)
 				{
 				} else if(!LastWeekDay)
@@ -47,18 +44,11 @@ namespace SUGAR_CrossPlatform
 				else
 					Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(passedProfile));
 			};
-            
-			Abort.Clicked += (sender, e) =>
-			{
-				if (existingProfile)
-                    Application.Current.MainPage.Navigation.PushAsync(new EditProfilePage(passedProfile.Name));
-                else
-                    Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(passedProfile));
-			};
+           
 
         }
 
-        private bool CheckTimeInput()
+        private bool IsTimeInputValid()
 		{
 			return true;
 		}
