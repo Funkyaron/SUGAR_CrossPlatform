@@ -23,7 +23,7 @@
             </Grid>
             
             <StackLayout Orientation="Horizontal">
-                <Button x:Name="StartTime" 
+                <Button x:Name="StartTimeButton" 
                         Margin="50,50,0,0" 
                         TextColor="Black"
                         FontSize="13"
@@ -34,7 +34,7 @@
                         WidthRequest="120" 
                         HeightRequest="50" 
                         IsVisible="false"/>
-                <Button x:Name="EndTime" 
+                <Button x:Name="EndTimeButton" 
                         Margin="20,50,0,0" 
                         TextColor="Black"
                         FontSize="13"

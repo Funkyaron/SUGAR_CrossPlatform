@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SUGAR_CrossPlatform.ChangeTimePage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="75,0,0,75">
-            <Label x:Name="ChooseWeekDay" FontSize="25"/>
-            <TimePicker Margin="0,85,0,0" BackgroundColor="Gray" x:Name="ChooseWeekDayTime" HorizontalOptions="Start" WidthRequest="225" HeightRequest="25"/>
-            <Button x:Name="Confirm" Text="Bestätigen" TextColor="Black" Margin="0,50,0,0" BorderColor="Black" BorderWidth="1" BorderRadius="0" WidthRequest="225" HorizontalOptions="Start"/>
-            <Button x:Name="Abort" Text="Abbrechen" TextColor="Black" Margin="0,25,0,0" BorderColor="Black" BorderWidth="1" BorderRadius="0" WidthRequest="225" HorizontalOptions="Start"/>
+            <Label x:Name="ChooseWeekDayLabel" FontSize="25"/>
+            <TimePicker Margin="0,85,0,0" BackgroundColor="Gray" x:Name="ChooseWeekDayTimePicker" HorizontalOptions="Start" WidthRequest="225" HeightRequest="25"/>
+            <Button x:Name="ConfirmButton" Text="Bestätigen" TextColor="Black" Margin="0,50,0,0" BorderColor="Black" BorderWidth="1" BorderRadius="0" WidthRequest="225" HorizontalOptions="Start"/>
+            <Button x:Name="AbortButton" Text="Abbrechen" TextColor="Black" Margin="0,25,0,0" BorderColor="Black" BorderWidth="1" BorderRadius="0" WidthRequest="225" HorizontalOptions="Start"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

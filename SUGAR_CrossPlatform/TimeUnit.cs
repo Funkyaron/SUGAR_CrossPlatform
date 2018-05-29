@@ -9,6 +9,12 @@ namespace SUGAR_CrossPlatform
             Minute = minute;
         }
 
+        public TimeUnit(TimeUnit oldTime)
+		{
+			Hour = oldTime.Hour;
+			Minute = oldTime.Minute;
+		}
+
         public int Hour { get; set; }
         public int Minute { get; set; }
 

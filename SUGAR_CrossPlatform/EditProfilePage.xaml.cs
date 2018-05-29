@@ -82,17 +82,17 @@ namespace SUGAR_CrossPlatform
                     {
                         selectDay = selectedColumn;
                         selectionRow[selectedColumn].BackgroundColor = Color.Orange;
-                        StartTime.Text = "VON: " + ToEditProfile.StartTimes[selectedColumn].ToString();
-                        EndTime.Text = "BIS: " + ToEditProfile.EndTimes[selectedColumn].ToString();
-                        StartTime.IsVisible = true;
-                        EndTime.IsVisible = true;
+						StartTimeButton.Text = "VON: " + ToEditProfile.StartTimes[selectedColumn].ToString();
+						EndTimeButton.Text = "BIS: " + ToEditProfile.EndTimes[selectedColumn].ToString();
+						StartTimeButton.IsVisible = true;
+						EndTimeButton.IsVisible = true;
                     }
                     else
                     {
                         selectionRow[selectDay].BackgroundColor = Color.White;
                         selectionRow[selectedColumn].BackgroundColor = Color.Orange;
-                        StartTime.IsVisible = false;
-                        EndTime.IsVisible = false;
+						StartTimeButton.IsVisible = false;
+						EndTimeButton.IsVisible = false;
                         selectDay = selectedColumn;
                     }
                 };
@@ -108,10 +108,10 @@ namespace SUGAR_CrossPlatform
                         activationRow[selectedColumn].BackgroundColor = Color.Green;
                         if (selectDay == selectedColumn)
                         {
-                            StartTime.Text = "VON: " + ToEditProfile.StartTimes[selectedColumn].ToString();
-                            EndTime.Text = "BIS: " + ToEditProfile.EndTimes[selectedColumn].ToString();
-                            StartTime.IsVisible = true;
-                            EndTime.IsVisible = true;
+                            StartTimeButton.Text = "VON: " + ToEditProfile.StartTimes[selectedColumn].ToString();
+                            EndTimeButton.Text = "BIS: " + ToEditProfile.EndTimes[selectedColumn].ToString();
+							StartTimeButton.IsVisible = true;
+							EndTimeButton.IsVisible = true;
                         }
                         ToEditProfile.Days[selectedColumn] = true;
                     }
@@ -120,8 +120,8 @@ namespace SUGAR_CrossPlatform
                         activationRow[selectedColumn].BackgroundColor = Color.White;
 						if (selectDay == selectedColumn)
 						{
-							StartTime.IsVisible = false;
-							EndTime.IsVisible = false;
+							StartTimeButton.IsVisible = false;
+							EndTimeButton.IsVisible = false;
 						}
                         ToEditProfile.Days[selectedColumn] = false;
                     }
@@ -143,6 +143,16 @@ namespace SUGAR_CrossPlatform
             ActivationPanel.Children.Add(activateSaturday, 5, 1);
             ActivationPanel.Children.Add(activateSunday, 6, 1);
 
+			StartTimeButton.Clicked += (sender, args) =>
+			{
+				Navigation.PushAsync(new ChangeTimePage(selectDay, ToEditProfile.StartTimes[selectDay], true, ToEditProfile, this));
+			};
+
+			EndTimeButton.Clicked += (sender, args) =>
+            {
+                Navigation.PushAsync(new ChangeTimePage(selectDay, ToEditProfile.EndTimes[selectDay], false, ToEditProfile, this));
+            };
+
             Save.Clicked += (sender, e) =>
             {
 				ProfileManager mgr = new ProfileManager();
@@ -161,8 +171,8 @@ namespace SUGAR_CrossPlatform
         }
 
 		public void OnTimeChanged() {
-			// Update views
-			// Don't Save profile ;)
+			StartTimeButton.Text = "VON: " + ToEditProfile.StartTimes[selectDay];
+			EndTimeButton.Text = "VON: " + ToEditProfile.EndTimes[selectDay];
 		}
     }
 }
