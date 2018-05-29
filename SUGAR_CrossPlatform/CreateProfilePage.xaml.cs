@@ -7,7 +7,6 @@ namespace SUGAR_CrossPlatform
 {
     public partial class CreateProfilePage : ContentPage
 	{
-		private ProfileManager creationMgr;
 		private Profile TemporaryProfile;
 		private int selectDay;
 		private ProfileManager ProfManager;
@@ -143,7 +142,10 @@ namespace SUGAR_CrossPlatform
 				{
 					DisplayAlert("Achtung", "Ihr Profil enthält keinen Namen!", "OK");
 				}
+				ProfManager.SaveProfile(TemporaryProfile);
 				Application.Current.MainPage.Navigation.PopAsync();
+				Application.Current.MainPage.Navigation.PopAsync();
+				Application.Current.MainPage.Navigation.PushAsync(new OverviewPage());
 			};
 
 			Cancel.Clicked += (sender, e) =>

@@ -46,6 +46,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ProfileDeleteCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -70,6 +74,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ChangeTimePage.xaml.cs">
       <DependentUpon>ChangeTimePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ProfileDeleteCell.xaml.cs">
+      <DependentUpon>ProfileDeleteCell.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
