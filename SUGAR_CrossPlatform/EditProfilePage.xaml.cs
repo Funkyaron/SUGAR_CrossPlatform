@@ -9,17 +9,15 @@ namespace SUGAR_CrossPlatform
     {
 		private Profile ToEditProfile;
         private int selectDay;
-        private ProfileManager ProfManager;
-
-        public EditProfilePage(String name)
+        
+        public EditProfilePage(Profile prof, ProfileCell parent)
         {
             selectDay = 0;
-            ProfManager = new ProfileManager();
-			ToEditProfile = new ProfileManager().GetProfile(name);
+			ToEditProfile = prof;
 
             InitializeComponent();
 
-			NameLabel.Text = name;
+			NameLabel.Text = ToEditProfile.Name;
 
             ActivationPanel.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             ActivationPanel.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
@@ -120,8 +118,11 @@ namespace SUGAR_CrossPlatform
                     else if (ToEditProfile.Days[selectedColumn])
                     {
                         activationRow[selectedColumn].BackgroundColor = Color.White;
-                        StartTime.IsVisible = false;
-                        EndTime.IsVisible = false;
+						if (selectDay == selectedColumn)
+						{
+							StartTime.IsVisible = false;
+							EndTime.IsVisible = false;
+						}
                         ToEditProfile.Days[selectedColumn] = false;
                     }
                 };
@@ -144,10 +145,11 @@ namespace SUGAR_CrossPlatform
 
             Save.Clicked += (sender, e) =>
             {
-				ProfManager.SaveProfile(ToEditProfile);
-				if(ToEditProfile.Active) {
-					ProfManager.InitProfile(ToEditProfile);
-				}
+				ProfileManager mgr = new ProfileManager();
+				mgr.InitProfile(ToEditProfile);
+				Console.WriteLine("Active: " + parent.Active);
+				Console.WriteLine("Allowed: " + parent.Allowed);
+				parent.Allowed = ToEditProfile.Allowed;
                 Application.Current.MainPage.Navigation.PopAsync();
             };
 

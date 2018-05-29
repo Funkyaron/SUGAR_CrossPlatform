@@ -46,11 +46,12 @@ namespace SUGAR_CrossPlatform
 			var customCell = new DataTemplate(typeof(ProfileCell));
 			customCell.SetBinding(ProfileCell.NameProperty, "Name");
 			customCell.SetBinding(ProfileCell.ActiveProperty, "Active");
+			customCell.SetBinding(ProfileCell.AllowedProperty, "Allowed");
 
 			ListView profList = new ListView()
 			{
 				ItemTemplate = customCell,
-				ItemsSource = ProfManager.GetAllProfiles()
+				ItemsSource = ProfManager.GetAllProfiles() // Input is Profile, so it will look for property in Profile class
 			};
 
 			profList.RowHeight = 100;
