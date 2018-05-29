@@ -34,7 +34,7 @@ namespace SUGAR_CrossPlatform
 			ChooseWeekDayTime.Time = new TimeSpan(oldTime.Hour,oldTime.Minute,0);
 
 			Confirm.Clicked += (sender, e) =>
-			{
+			{}
 				if (LastWeekDay)
 				{
 				} else if(!LastWeekDay)

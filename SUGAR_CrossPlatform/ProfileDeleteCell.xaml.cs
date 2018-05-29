@@ -14,7 +14,7 @@ namespace SUGAR_CrossPlatform
 		public static List<String> deletionList;
 
         public ProfileDeleteCell()
-        {
+		{
             // Initalize Cell components
             container = new Frame();
             container.OutlineColor = Color.Black;

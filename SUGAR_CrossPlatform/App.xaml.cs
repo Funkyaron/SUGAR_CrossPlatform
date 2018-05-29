@@ -15,10 +15,10 @@ namespace SUGAR_CrossPlatform
             // Handle when your app starts
         }
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
+		protected override void OnSleep()
+		{
+			// Handle when your app sleeps
+		}
 
         protected override void OnResume()
         {
