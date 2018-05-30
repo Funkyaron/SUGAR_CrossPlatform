@@ -67,7 +67,7 @@ namespace SUGAR_CrossPlatform
 				{
 					activationRow[currentColumn].BackgroundColor = Color.Green;
 				}
-			}
+			}         
 
             for (int currSelectionColumn = 0; currSelectionColumn < selectionRow.Length; currSelectionColumn++)
             {
@@ -162,6 +162,11 @@ namespace SUGAR_CrossPlatform
 				parent.Allowed = ToEditProfile.Allowed;
                 Application.Current.MainPage.Navigation.PopAsync();
             };
+
+			ChooseContactsButton.Clicked += (sender, e) =>
+			{
+				Navigation.PushAsync(new SelectContactsPage(ToEditProfile));
+			};
 
             Cancel.Clicked += (sender, e) =>
             {
