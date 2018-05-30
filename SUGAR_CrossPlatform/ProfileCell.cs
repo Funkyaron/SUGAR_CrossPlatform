@@ -3,7 +3,6 @@ using Xamarin.Forms;
 
 namespace SUGAR_CrossPlatform
 {
-	
     public class ProfileCell : ViewCell
     {
 		private Profile localProfile;

@@ -166,7 +166,6 @@ namespace SUGAR_CrossPlatform
             Cancel.Clicked += (sender, e) =>
             {
                 Application.Current.MainPage.Navigation.PopAsync();
-                DisplayAlert("Achtung", "Die Profilerstellung wurde abgebrochen!", "OK");
             };
         }
 

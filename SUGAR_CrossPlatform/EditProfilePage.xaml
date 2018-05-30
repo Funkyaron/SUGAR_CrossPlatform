@@ -55,6 +55,15 @@
                     BorderColor="Black" 
                     BorderWidth="1" 
                     BorderRadius="25"/>
+            <Button x:Name="ChooseContactsButton"
+                    Margin="50,0,50,0"
+                    HeightRequest="50"
+                    TextColor="Black"
+                    FontSize="13"
+                    Text="Kontakte auswählen"
+                    BorderColor="Black"
+                    BorderWidth="1"
+                    BorderRadius="25"/>
             <Button x:Name="Cancel" 
                     Margin="50,0,50,0" 
                     HeightRequest="50" 
