@@ -8,7 +8,7 @@ namespace SUGAR_CrossPlatform
         public SUGAR_CrossPlatformPage()
         {
             InitializeComponent();
-
+			Logo.Source = ImageSource.FromResource("Sugar.png");
         }
 
         public  void OpenShowProfiles(object sender,EventArgs e)

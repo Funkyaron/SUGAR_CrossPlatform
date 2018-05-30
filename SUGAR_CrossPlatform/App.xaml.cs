@@ -7,18 +7,18 @@ namespace SUGAR_CrossPlatform
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new SUGAR_CrossPlatformPage());
+			MainPage = new NavigationPage(new SUGAR_CrossPlatformPage());
         }
-
+        
         protected override void OnStart()
         {
             // Handle when your app starts
         }
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
+		protected override void OnSleep()
+		{
+			// Handle when your app sleeps
+		}
 
         protected override void OnResume()
         {

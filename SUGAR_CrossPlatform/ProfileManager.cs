@@ -161,7 +161,7 @@ namespace SUGAR_CrossPlatform
                     readProfiles.Add(currentProfile);
                 }
             }
-
+            
             return readProfiles.ToArray();
         }
 
@@ -171,6 +171,7 @@ namespace SUGAR_CrossPlatform
             if (prof.Active == false)
             {
                 prof.Allowed = true;
+				SaveProfile(prof);
             }
             else
             {
@@ -237,14 +238,14 @@ namespace SUGAR_CrossPlatform
         private string GetFolderPath()
         {
             string folderPath = "";
-#if __Android__
+//#if __Android__
             folderPath += Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-#endif
+/*#endif
 #if __IOS__
             NSFileManager fileMgr = NSFileManager.DefaultManager;
             NSUrl url = fileMgr.GetContainerUrl("group.de.unisiegen.SUGAR-CrossPlatform");
             folderPath += url.Path;
-#endif
+#endif*/
             return folderPath;
         }
 

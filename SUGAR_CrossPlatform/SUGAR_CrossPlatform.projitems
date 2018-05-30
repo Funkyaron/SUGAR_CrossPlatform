@@ -16,6 +16,44 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Add.png">
+      <LogicalName>Add.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Delete.png">
+      <LogicalName>Delete.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Download.png">
+      <LogicalName>Download.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SUGAR.png">
+      <LogicalName>Sugar.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)PowerOff.png">
+      <LogicalName>PowerOff.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)PowerOn.png">
+      <LogicalName>PowerOn.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)EditProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)CreateProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ChangeTimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ProfileDeleteCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SelectContactsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -27,15 +65,31 @@
     <Compile Include="$(MSBuildThisFileDirectory)OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ProfileCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IContactsFetcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SUGARContact.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ClosingTimeManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProfileCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditProfilePage.xaml.cs">
+      <DependentUpon>EditProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)CheckBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CreateProfilePage.xaml.cs">
+      <DependentUpon>CreateProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ChangeTimePage.xaml.cs">
+      <DependentUpon>ChangeTimePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ProfileDeleteCell.xaml.cs">
+      <DependentUpon>ProfileDeleteCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)IOnTimeChangedListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SelectContactsPage.xaml.cs">
+      <DependentUpon>SelectContactsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ContactsCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FTPDownloader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)power_on.png" />
-    <None Include="$(MSBuildThisFileDirectory)power_off.png" />
     <Compile Include="$(MSBuildThisFileDirectory)ProfileManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Profile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TimeUnit.cs" />
@@ -44,5 +98,8 @@
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)IScheduler.cs" />
+    <None Include="$(MSBuildThisFileDirectory)manager.png" />
+    <None Include="$(MSBuildThisFileDirectory)Menu_Alternative.png" />
+    <None Include="$(MSBuildThisFileDirectory)nomobilephonesallowed.png" />
   </ItemGroup>
 </Project>
