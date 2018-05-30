@@ -87,6 +87,7 @@
       <DependentUpon>SelectContactsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ContactsCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FTPDownloader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ProfileManager.cs" />

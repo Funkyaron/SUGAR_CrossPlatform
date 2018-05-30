@@ -135,6 +135,13 @@ namespace SUGAR_CrossPlatform
             return isSuccessful;
         }
 
+		public void DeleteProfile(string name) {
+			string path = Path.Combine(GetFolderPath(), name + ".xml");
+			if(File.Exists(path)) {
+				File.Delete(path);
+			}
+		}
+
         public Profile GetProfile(string name)
         {
             return ReadProfile(Path.Combine(GetFolderPath(), name + ".xml"));
@@ -341,6 +348,7 @@ namespace SUGAR_CrossPlatform
             }
             reader?.Close();
             _rwl.ExitReadLock();
+
             return result;
         }
 
