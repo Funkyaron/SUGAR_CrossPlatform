@@ -17,7 +17,7 @@ namespace SUGAR_CrossPlatform
 
 			var customCell = new DataTemplate(typeof(ContactsCell));
 			customCell.SetBinding(ContactsCell.NameProperty, "Name");
-			customCell.SetBinding(ContactsCell.PhoneNumberProperty, "PhoneNumber");
+			customCell.SetBinding(ContactsCell.PhoneNumberAsStringProperty,"PhoneNumbersAsString");
             
 			ContactNamesList = new ListView()
 			{
@@ -41,21 +41,32 @@ namespace SUGAR_CrossPlatform
 			return SelectedProfile.ContactNames;
 		}
 
-        public static void ModifyProfileContact(char type,string name,string number)
+		public static List<string> GetProfileContactNumbers()
+        {
+			return SelectedProfile.PhoneNumbersAsStrings;
+        }
+        
+        public static void ModifyProfileContact(char type,string name,List<string> numbers)
 		{
 			switch(type)
 			{
 				case 'a':
 				{
 						SelectedProfile.ContactNames.Add(name);
-						SelectedProfile.PhoneNumbersAsStrings.Add(number);
+                        foreach(string phoneNumber in numbers)
+						{
+							SelectedProfile.PhoneNumbersAsStrings.Add(phoneNumber);
+						}
 						break;
                 }
 
 				case 'r':
 				{
 						SelectedProfile.ContactNames.Remove(name);
-                        SelectedProfile.PhoneNumbersAsStrings.Remove(number);
+						foreach (string phoneNumber in numbers)
+                        {
+                            SelectedProfile.PhoneNumbersAsStrings.Remove(phoneNumber);
+                        }
                         break;
 				}
 
