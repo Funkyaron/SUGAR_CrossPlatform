@@ -14,7 +14,12 @@ namespace SUGAR_CrossPlatform
 		private StackLayout TopBarDelete;
 		private DataTemplate customCell;
 
-        public OverviewPage()
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+		}
+
+		public OverviewPage()
         {
             InitializeComponent();
 
@@ -75,6 +80,7 @@ namespace SUGAR_CrossPlatform
 
             DownloadTapGestureRecognizer.Tapped += (s, e) =>
             {
+				Navigation.PushAsync(new DownloadProfilesPage());
             };
 
             AddProfileImage.GestureRecognizers.Add(AddTapGestureRecognizer);

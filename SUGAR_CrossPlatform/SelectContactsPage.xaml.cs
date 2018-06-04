@@ -40,10 +40,20 @@ namespace SUGAR_CrossPlatform
 		{
 			return SelectedProfile.ContactNames;
 		}
+        
+        public static List<long> GetProfileContactNumbersAsLongs()
+        {
+			return SelectedProfile.PhoneNumbersAsLongs;
+        }
 
 		public static List<string> GetProfileContactNumbers()
         {
 			return SelectedProfile.PhoneNumbersAsStrings;
+        }
+        
+        public static List<long> GetContactNumbersAsLong()
+        {
+			return SelectedProfile.PhoneNumbersAsLongs;
         }
         
         public Profile GetProfile()

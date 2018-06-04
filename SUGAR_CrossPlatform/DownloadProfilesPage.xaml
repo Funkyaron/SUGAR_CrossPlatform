@@ -12,7 +12,7 @@
                 <Label Text="Passwort" VerticalOptions="Center"/>
                 <Entry Margin="40,0,0,0" x:Name="UserPasswordInput" WidthRequest="150"/>
             </StackLayout>
-            <Button Margin="50,25,50,0" x:Name="ConfirmDownloadButton" Text="Download starten" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="25"/>
+            <Button Margin="50,25,50,0" x:Name="ConfirmDownloadButton" Text="Download starten" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="25" Clicked="ConfirmDownload"/>
             <Button Margin="50,5,50,0" x:Name="AbortDownloadButton" Text="Abbrechen" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="25"/>
         </StackLayout>
     </ContentPage.Content>
