@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ContactsCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FTPDownloader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeleteProfileCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ProfileManager.cs" />

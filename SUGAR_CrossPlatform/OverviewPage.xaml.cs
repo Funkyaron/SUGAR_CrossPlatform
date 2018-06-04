@@ -7,65 +7,156 @@ namespace SUGAR_CrossPlatform
 {
     public partial class OverviewPage : ContentPage
     {
-		private ProfileManager ProfManager;
-		private ListView profList;
+        private ProfileManager ProfManager;
+        private Profile[] allProfiles;
+        private ListView profList;
+		private StackLayout TopBarOverview;
+		private StackLayout TopBarDelete;
+		private DataTemplate customCell;
 
-		public OverviewPage()
-		{         
-			InitializeComponent();
+        public OverviewPage()
+        {
+            InitializeComponent();
 
-			ProfManager = new ProfileManager();
+            ProfManager = new ProfileManager();
+            allProfiles = ProfManager.GetAllProfiles();
 
-			var AddTapGestureRecognizer = new TapGestureRecognizer();
-			var DeleteTapGestureRecognizer = new TapGestureRecognizer();
-			var DownloadTapGestureRecognizer = new TapGestureRecognizer();
-
-			AddTapGestureRecognizer.Tapped += (s, e) =>
+			var AddProfileImage = new Image()
 			{
-				Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(this));
+				WidthRequest = 25,
+				HeightRequest = 25,
+				Source = ImageSource.FromResource("Add.png")
 			};
 
-			DeleteTapGestureRecognizer.Tapped += (s, e) =>
+			var DeleteProfileImage = new Image()
+			{
+				WidthRequest = 25,
+				HeightRequest = 25,
+				Source = ImageSource.FromResource("Delete.png")
+			};
+			var DownloadImage = new Image()
+			{
+				WidthRequest = 25,
+				HeightRequest = 25,
+				Source = ImageSource.FromResource("Download.png")
+			};
+
+            var AddTapGestureRecognizer = new TapGestureRecognizer();
+            var DeleteTapGestureRecognizer = new TapGestureRecognizer();
+            var DownloadTapGestureRecognizer = new TapGestureRecognizer();
+
+            AddTapGestureRecognizer.Tapped += (s, e) =>
+            {
+                Application.Current.MainPage.Navigation.PushAsync(new CreateProfilePage(this));
+            };
+
+            DeleteTapGestureRecognizer.Tapped += (s, e) =>
+            {
+				TopBar.Content = TopBarDelete;
+                var deleteCell = new DataTemplate(typeof(DeleteProfileCell));
+                profList = new ListView()
+                {
+                    ItemTemplate = deleteCell,
+                    ItemsSource = allProfiles,
+                    RowHeight = 100,
+                    SeparatorVisibility = SeparatorVisibility.None
+                };
+                deleteCell.SetBinding(DeleteProfileCell.NameProperty, "Name");
+                profList.ItemTapped += (sender, args) =>
+                {
+                    Profile deadProfile = (Profile)((ListView)sender).SelectedItem;
+                    ((ListView)sender).SelectedItem = null;
+                    ProfManager.DeleteProfile(deadProfile.Name);
+                    allProfiles = ProfManager.GetAllProfiles();
+                    ((ListView)sender).ItemsSource = allProfiles;
+                };
+                container.Content = profList;
+            };
+
+            DownloadTapGestureRecognizer.Tapped += (s, e) =>
             {
             };
 
-			DownloadTapGestureRecognizer.Tapped += (s, e) =>
-            {
-            };
+            AddProfileImage.GestureRecognizers.Add(AddTapGestureRecognizer);
+            DeleteProfileImage.GestureRecognizers.Add(DeleteTapGestureRecognizer);
+            DownloadImage.GestureRecognizers.Add(DownloadTapGestureRecognizer);
 
-			AddProfile.Source = ImageSource.FromResource("Add.png");
-            DeleteProfile.Source = ImageSource.FromResource("Delete.png");
-            DownloadProfile.Source = ImageSource.FromResource("Download.png");
-
-			AddProfile.GestureRecognizers.Add(AddTapGestureRecognizer);
-			DeleteProfile.GestureRecognizers.Add(DeleteTapGestureRecognizer);
-			DownloadProfile.GestureRecognizers.Add(DownloadTapGestureRecognizer);
-
-			var customCell = new DataTemplate(typeof(ProfileCell));
-			customCell.SetBinding(ProfileCell.NameProperty, "Name");
-			customCell.SetBinding(ProfileCell.ActiveProperty, "Active");
-			customCell.SetBinding(ProfileCell.AllowedProperty, "Allowed");
-
-			profList = new ListView()
+			TopBarOverview = new StackLayout()
 			{
-				ItemTemplate = customCell,
-				ItemsSource = ProfManager.GetAllProfiles() // Input is Profile, so it will look for property in Profile class
+				Orientation = StackOrientation.Horizontal,
+				HorizontalOptions = LayoutOptions.End,
+				Spacing = 20,
+				Margin = new Thickness(0, 10, 20, 10)
 			};
-
-			profList.RowHeight = 100;
             
-			profList.SeparatorVisibility = SeparatorVisibility.None;
-			profList.ItemSelected += (sender, e) =>
+			TopBarOverview.Children.Add(AddProfileImage);
+			TopBarOverview.Children.Add(DeleteProfileImage);
+			TopBarOverview.Children.Add(DownloadImage);
+
+			var FinishedImage = new Image()
 			{
-				((ListView)sender).SelectedItem = null;
+				WidthRequest = 25,
+				HeightRequest = 25,
+				Source = ImageSource.FromResource("PowerOn.png")
 			};
 
-			container.Content = profList;
-		}
+		    var FinishedTapGestureRecognizer = new TapGestureRecognizer();
+			FinishedTapGestureRecognizer.Tapped += (sender, args) =>
+			{
+				TopBar.Content = TopBarOverview;
+				profList = new ListView()
+				{
+					ItemTemplate = customCell,
+					ItemsSource = allProfiles,
+					RowHeight = 100,
+					SeparatorVisibility = SeparatorVisibility.None
+				};
+				profList.ItemSelected += (s, e) =>
+				{
+					((ListView)s).SelectedItem = null;
+				};
+				container.Content = profList;
+			};
+			FinishedImage.GestureRecognizers.Add(FinishedTapGestureRecognizer);
 
-		public void UpdateList() {
-			profList.ItemsSource = ProfManager.GetAllProfiles();
-			container.Content = profList;
-		}
+			TopBarDelete = new StackLayout()
+			{
+				Orientation = StackOrientation.Horizontal,
+				HorizontalOptions = LayoutOptions.End,
+				Spacing = 20,
+				Margin = new Thickness(0, 10, 20, 10)
+			};
+			TopBarDelete.Children.Add(FinishedImage);
+            
+			TopBar.Content = TopBarOverview;
+
+            customCell = new DataTemplate(typeof(ProfileCell));
+            customCell.SetBinding(ProfileCell.NameProperty, "Name");
+            customCell.SetBinding(ProfileCell.ActiveProperty, "Active");
+            customCell.SetBinding(ProfileCell.AllowedProperty, "Allowed");
+
+            profList = new ListView()
+            {
+                ItemTemplate = customCell,
+                ItemsSource = allProfiles, // Input is Profile, so it will look for property in Profile class
+                RowHeight = 100,
+				SeparatorVisibility = SeparatorVisibility.None
+            };
+
+            profList.ItemSelected += (sender, e) =>
+            {
+                ((ListView)sender).SelectedItem = null;
+            };
+
+            container.Content = profList;
+        }
+
+        public void UpdateList()
+        {
+            allProfiles = ProfManager.GetAllProfiles();
+            Console.WriteLine("Profiles Count: " + allProfiles.Length);
+            profList.ItemsSource = allProfiles;
+            container.Content = profList;
+        }
     }
 }
