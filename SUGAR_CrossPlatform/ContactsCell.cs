@@ -12,9 +12,11 @@ namespace SUGAR_CrossPlatform
         private Label NameLabel;
         private Image SelectedImage;
 		public static List<string> profileContacts;
+		public static List<long> profileContactsAsLongs;
 
 		public static readonly BindableProperty NameProperty = BindableProperty.Create("Name", typeof(string), typeof(ContactsCell), "DefaultName", BindingMode.TwoWay);
 		public static readonly BindableProperty PhoneNumberAsStringProperty = BindableProperty.Create("PhoneNumbersAsString", typeof(List<string>), typeof(ContactsCell),new List<string>(), BindingMode.TwoWay);
+		public static readonly BindableProperty PhoneNumberAsLongProperty = BindableProperty.Create("PhoneNumbersAsLong", typeof(List<long>), typeof(ContactsCell), new List<long>(), BindingMode.TwoWay);
         
         public string Name 
 		{
@@ -27,6 +29,12 @@ namespace SUGAR_CrossPlatform
 			get { return (List<string>)GetValue(PhoneNumberAsStringProperty);  }
 			set { SetValue(PhoneNumberAsStringProperty, value);  }
 		}
+        
+        public List<long> PhoneNumbersAsLong
+        {
+            get { return (List<long>)GetValue(PhoneNumberAsLongProperty); }
+            set { SetValue(PhoneNumberAsLongProperty, value); }
+        }
 
 		public ContactsCell()
 		{
@@ -36,9 +44,9 @@ namespace SUGAR_CrossPlatform
             ContainerLayout = new StackLayout();
             NameLabel = new Label();
             SelectedImage = new Image();
-
+            
 			// Setup all elements
-			Container.WidthRequest = 230;
+			Container.WidthRequest = 150;
             Container.Margin = new Thickness(10,0,10,0);
 			Container.CornerRadius = 0;
             Container.OutlineColor = Color.Black;
@@ -64,10 +72,13 @@ namespace SUGAR_CrossPlatform
 			{
 				NameLabel.Text = Name;
 
+				if (PhoneNumber.Capacity == 0)
+					Debug.WriteLine("Error: No phone numbers for this contact!");
+
 				if (profileContacts.Contains(Name))
 				{
 					SelectedImage.Source = ImageSource.FromResource("Checked");
-				} else {
+				} else if(!profileContacts.Contains(Name)){
 					SelectedImage.Source = ImageSource.FromResource("NotChecked");
 				}
 
@@ -79,7 +90,7 @@ namespace SUGAR_CrossPlatform
                     {
 						Debug.WriteLine("Contact is " + Name + " is now disselected ...");
                         SelectedImage.Source = ImageSource.FromResource("NotChecked");
-						SelectContactsPage.ModifyProfileContact('r',Name,PhoneNumber);
+						SelectContactsPage.ModifyProfileContact('r',Name,PhoneNumber,PhoneNumbersAsLong);
 						foreach(string name in SelectContactsPage.GetProfileContactNames())
 						{
 							Debug.WriteLine(name);
@@ -93,7 +104,7 @@ namespace SUGAR_CrossPlatform
                     {
 						Debug.WriteLine("Contact is " + Name + " is now selected ...");
                         SelectedImage.Source = ImageSource.FromResource("Checked");
-						SelectContactsPage.ModifyProfileContact('a', Name, PhoneNumber);
+						SelectContactsPage.ModifyProfileContact('a', Name, PhoneNumber,PhoneNumbersAsLong);
 						foreach (string name in SelectContactsPage.GetProfileContactNames())
                         {
                             Debug.WriteLine(name);

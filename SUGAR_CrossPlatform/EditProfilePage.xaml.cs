@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 using Xamarin.Forms;
 
@@ -9,8 +10,18 @@ namespace SUGAR_CrossPlatform
     {
 		private Profile ToEditProfile;
         private int selectDay;
-        
-        public EditProfilePage(Profile prof, ProfileCell parent)
+
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+		}
+
+		protected override void OnDisappearing()
+		{
+			base.OnDisappearing();
+		}
+
+		public EditProfilePage(Profile prof, ProfileCell parent)
         {
             selectDay = 0;
 			ToEditProfile = prof;

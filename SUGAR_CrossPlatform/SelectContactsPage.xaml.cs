@@ -46,7 +46,7 @@ namespace SUGAR_CrossPlatform
 			return SelectedProfile.PhoneNumbersAsStrings;
         }
         
-        public static void ModifyProfileContact(char type,string name,List<string> numbers)
+        public static void ModifyProfileContact(char type,string name,List<string> numbers,List<long> numbersAsLongs)
 		{
 			switch(type)
 			{
@@ -57,6 +57,10 @@ namespace SUGAR_CrossPlatform
 						{
 							SelectedProfile.PhoneNumbersAsStrings.Add(phoneNumber);
 						}
+                        foreach(long phoneNumber in numbersAsLongs)
+                        {
+							SelectedProfile.PhoneNumbersAsLongs.Add(phoneNumber);
+                        }
 						break;
                 }
 
@@ -66,6 +70,10 @@ namespace SUGAR_CrossPlatform
 						foreach (string phoneNumber in numbers)
                         {
                             SelectedProfile.PhoneNumbersAsStrings.Remove(phoneNumber);
+                        }
+                        foreach(long phoneNumber in numbersAsLongs)
+                        {
+                            SelectedProfile.PhoneNumbersAsLongs.Add(phoneNumber);
                         }
                         break;
 				}

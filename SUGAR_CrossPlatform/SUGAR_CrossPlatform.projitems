@@ -60,6 +60,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)NotChecked.png">
       <LogicalName>NotChecked</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)DownloadProfilesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -95,6 +99,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ContactsCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FTPDownloader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeleteProfileCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DownloadProfilesPage.xaml.cs">
+      <DependentUpon>DownloadProfilesPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ProfileManager.cs" />
