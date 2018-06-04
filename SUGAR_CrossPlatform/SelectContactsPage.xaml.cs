@@ -7,7 +7,7 @@ namespace SUGAR_CrossPlatform
 {
 	public partial class SelectContactsPage : ContentPage
 	{
-		private static Profile SelectedProfile;
+		public static Profile SelectedProfile;
 		private ListView ContactNamesList;
 
 		public SelectContactsPage(Profile passedProfile)
@@ -17,17 +17,17 @@ namespace SUGAR_CrossPlatform
 
 			var customCell = new DataTemplate(typeof(ContactsCell));
 			customCell.SetBinding(ContactsCell.NameProperty, "Name");
-			customCell.SetBinding(ContactsCell.PhoneNumberAsStringProperty,"PhoneNumbersAsString");
+			customCell.SetBinding(ContactsCell.PhoneNumbersAsStringProperty,"PhoneNumbersAsStrings");
+			customCell.SetBinding(ContactsCell.PhoneNumbersAsLongProperty, "PhoneNumbersAsLongs");
             
 			ContactNamesList = new ListView()
 			{
 				ItemTemplate = customCell,
-				ItemsSource = DependencyService.Get<IContactsFetcher>().GetAllContacts()
+				ItemsSource = DependencyService.Get<IContactsFetcher>().GetAllContacts(),
+                RowHeight = 100,
+                SeparatorVisibility = SeparatorVisibility.None
 			};
 
-			ContactNamesList.RowHeight = 100;
-
-            ContactNamesList.SeparatorVisibility = SeparatorVisibility.None;
             ContactNamesList.ItemSelected += (sender, e) =>
             {
                 ((ListView)sender).SelectedItem = null;
@@ -45,6 +45,12 @@ namespace SUGAR_CrossPlatform
         {
 			return SelectedProfile.PhoneNumbersAsStrings;
         }
+        
+        public Profile GetProfile()
+        {
+			return SelectedProfile;
+        }
+        
         
         public static void ModifyProfileContact(char type,string name,List<string> numbers,List<long> numbersAsLongs)
 		{
