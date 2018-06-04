@@ -11,8 +11,9 @@ namespace SUGAR_CrossPlatform
         private StackLayout ContainerLayout;
         private Label NameLabel;
         private Image SelectedImage;
-		public static List<string> PhoneNumbersAsStrings;
-		public static List<long> PhoneNumbersAsLongs;
+		public static List<string> ProfileContactNames;
+		public static List<string> ProfileNumbersAsStrings;
+		public static List<long> ProfileNumbersAsLongs;
 
 		public static readonly BindableProperty NameProperty = BindableProperty.Create("Name", typeof(string), typeof(ContactsCell), "DefaultName", BindingMode.TwoWay);
 		public static readonly BindableProperty PhoneNumbersAsStringProperty = BindableProperty.Create("PhoneNumbersAsStrings", typeof(List<string>), typeof(ContactsCell),new List<string>(), BindingMode.TwoWay);
@@ -24,7 +25,7 @@ namespace SUGAR_CrossPlatform
 			set { SetValue(NameProperty,value); }
 		}
         
-        public List<string> PhoneNumbers
+        public List<string> PhoneNumbersAsStrings
 		{
 			get { return (List<string>)GetValue(PhoneNumbersAsStringProperty);  }
 			set { SetValue(PhoneNumbersAsStringProperty, value);  }
@@ -58,9 +59,9 @@ namespace SUGAR_CrossPlatform
 			ContainerLayout.Children.Add(SelectedImage);
 			Container.Content = ContainerLayout;
 
-            
-			PhoneNumbersAsStrings = SelectContactsPage.GetProfileContactNames();
-			PhoneNumbersAsLongs = SelectContactsPage.GetProfileContactNumbersAsLongs();
+			ProfileContactNames = SelectContactsPage.GetProfileContactNames();           
+			ProfileNumbersAsStrings = SelectContactsPage.GetProfileContactNumbers();
+			ProfileNumbersAsLongs = SelectContactsPage.GetProfileContactNumbersAsLongs();
 
 			View = Container;
 		}
@@ -73,15 +74,15 @@ namespace SUGAR_CrossPlatform
 			{
 				NameLabel.Text = Name;
 
-				if (PhoneNumbers.Count == 0)
+				if (PhoneNumbersAsStrings.Count == 0)
 					Debug.WriteLine("Error: No phone numbers for this contact!");
-				else if (PhoneNumbersAsLongs.Count == 0)
+				if (PhoneNumberssAsLong.Count == 0)
 					Debug.WriteLine("Error: No phone numbers as long for this contact!");
 
-				if (PhoneNumbersAsStrings.Contains(Name))
+				if (ProfileContactNames.Contains(Name))
 				{
 					SelectedImage.Source = ImageSource.FromResource("Checked");
-				} else if(!PhoneNumbersAsStrings.Contains(Name)){
+				} else if(!ProfileContactNames.Contains(Name)){
 					SelectedImage.Source = ImageSource.FromResource("NotChecked");
 				}
 
@@ -89,11 +90,11 @@ namespace SUGAR_CrossPlatform
 				imageTapGestureRecognizer.Tapped += (sender, e) =>
 				{
 					Debug.WriteLine("Selected Contact: " + Name);
-					if (PhoneNumbersAsStrings.Contains(Name))
+					if (ProfileContactNames.Contains(Name))
                     {
 						Debug.WriteLine("Contact is " + Name + " is now disselected ...");
                         SelectedImage.Source = ImageSource.FromResource("NotChecked");
-						SelectContactsPage.ModifyProfileContact('r',Name,PhoneNumbers,PhoneNumberssAsLong);
+						SelectContactsPage.ModifyProfileContact('r',Name,PhoneNumbersAsStrings,PhoneNumberssAsLong);
 						foreach(string name in SelectContactsPage.GetProfileContactNames())
 						{
 							Debug.WriteLine(name);
@@ -107,11 +108,11 @@ namespace SUGAR_CrossPlatform
 							Debug.WriteLine(number);
                         }
                     }
-                    else if(!PhoneNumbersAsStrings.Contains(Name))
+                    else if(!ProfileContactNames.Contains(Name))
                     {
 						Debug.WriteLine("Contact is " + Name + " is now selected ...");
                         SelectedImage.Source = ImageSource.FromResource("Checked");
-						SelectContactsPage.ModifyProfileContact('a', Name, PhoneNumbers,PhoneNumberssAsLong);
+						SelectContactsPage.ModifyProfileContact('a', Name,PhoneNumbersAsStrings,PhoneNumberssAsLong);
 						foreach (string name in SelectContactsPage.GetProfileContactNames())
                         {
                             Debug.WriteLine(name);

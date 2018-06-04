@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 using Xamarin.Forms;
 
@@ -71,10 +72,12 @@ namespace SUGAR_CrossPlatform
 						SelectedProfile.ContactNames.Add(name);
                         foreach(string phoneNumber in numbers)
 						{
+							Debug.WriteLine("Adding strings ...");
 							SelectedProfile.PhoneNumbersAsStrings.Add(phoneNumber);
 						}
                         foreach(long phoneNumber in numbersAsLongs)
                         {
+							Debug.WriteLine("Adding longs ...");
 							SelectedProfile.PhoneNumbersAsLongs.Add(phoneNumber);
                         }
 						break;
@@ -85,10 +88,12 @@ namespace SUGAR_CrossPlatform
 						SelectedProfile.ContactNames.Remove(name);
 						foreach (string phoneNumber in numbers)
                         {
+                            Debug.WriteLine("Adding strings ...");
                             SelectedProfile.PhoneNumbersAsStrings.Remove(phoneNumber);
                         }
                         foreach(long phoneNumber in numbersAsLongs)
                         {
+                            Debug.WriteLine("Adding longs ...");
                             SelectedProfile.PhoneNumbersAsLongs.Add(phoneNumber);
                         }
                         break;
