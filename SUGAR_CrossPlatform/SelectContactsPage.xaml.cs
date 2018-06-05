@@ -94,7 +94,7 @@ namespace SUGAR_CrossPlatform
                         foreach(long phoneNumber in numbersAsLongs)
                         {
                             Debug.WriteLine("Adding longs ...");
-                            SelectedProfile.PhoneNumbersAsLongs.Add(phoneNumber);
+                            SelectedProfile.PhoneNumbersAsLongs.Remove(phoneNumber);
                         }
                         break;
 				}

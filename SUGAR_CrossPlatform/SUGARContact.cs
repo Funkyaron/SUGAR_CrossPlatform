@@ -7,7 +7,7 @@ namespace SUGAR_CrossPlatform
     {
         public string Name { get; }
         public List<string> PhoneNumbersAsStrings { get; }
-        List<long> PhoneNumbersAsLongs { get; }
+        public List<long> PhoneNumbersAsLongs { get; }
 
         public SUGARContact()
         {

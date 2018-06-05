@@ -26,6 +26,8 @@ namespace SUGAR_CrossPlatform
             selectDay = 0;
 			ToEditProfile = prof;
 
+			Debug.WriteLine(prof.ToString());
+
             InitializeComponent();
 
 			NameLabel.Text = ToEditProfile.Name;

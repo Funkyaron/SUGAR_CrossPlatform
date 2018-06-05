@@ -103,7 +103,7 @@ namespace SUGAR_CrossPlatform
 			{
 				WidthRequest = 25,
 				HeightRequest = 25,
-				Source = ImageSource.FromResource("PowerOn.png")
+				Source = ImageSource.FromResource("Checked")
 			};
 
 		    var FinishedTapGestureRecognizer = new TapGestureRecognizer();
