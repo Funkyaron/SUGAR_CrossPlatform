@@ -80,7 +80,7 @@ namespace SUGAR_CrossPlatform
 
             DownloadTapGestureRecognizer.Tapped += (s, e) =>
             {
-				Navigation.PushAsync(new DownloadProfilesPage());
+				Navigation.PushAsync(new DownloadProfilesPage(this));
             };
 
             AddProfileImage.GestureRecognizers.Add(AddTapGestureRecognizer);

@@ -189,7 +189,7 @@ namespace SUGAR_CrossPlatform
 
 		public void OnTimeChanged() {
 			StartTimeButton.Text = "VON: " + ToEditProfile.StartTimes[selectDay];
-			EndTimeButton.Text = "VON: " + ToEditProfile.EndTimes[selectDay];
+			EndTimeButton.Text = "BIS: " + ToEditProfile.EndTimes[selectDay];
 		}
     }
 }
