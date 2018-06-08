@@ -70,6 +70,10 @@ namespace SUGAR_CrossPlatform.Droid
             mAlarmManager.SetExact(AlarmType.RtcWakeup, targetTime, pending);
         }
 
+		public void CancelProfileNotifications(Profile prof) {
+			
+		}
+
 
         private long GetTargetTime(Profile prof, bool enable) {
             Calendar cal = Calendar.Instance;

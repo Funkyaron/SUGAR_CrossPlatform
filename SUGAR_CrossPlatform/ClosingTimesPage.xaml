@@ -4,23 +4,21 @@
         <StackLayout Margin="45,45,45,0" Orientation="Vertical">
         
             <Image/>
-            <Label Text="Wann möchten Sie an den " 
+            <Label Text="Wann möchten Sie an den Feierabend erinnert werden?" 
                    TextColor="Black" 
-                   HorizontalOptions="Center"/>
-            <Label Text="Feierabend erinnert werden?" 
-                   TextColor="Black" 
-                   HorizontalOptions="Center"/>
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
             
             <Grid x:Name="WeekDayGrid">
             
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 
                 <Grid.ColumnDefinitions>
@@ -36,13 +34,13 @@
                 <Button Text="Samstag" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="5" Grid.Column="0"/>
                 <Button Text="Sonntag" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="6" Grid.Column="0"/>
                 
-                <Button Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="0" Grid.Column="1"/>
-                <Button Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="1" Grid.Column="1"/>
-                <Button Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="2" Grid.Column="1"/>
-                <Button Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="3" Grid.Column="1"/>
-                <Button Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="4" Grid.Column="1"/>
-                <Button Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="5" Grid.Column="1"/>
-                <Button Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="6" Grid.Column="1"/>
+                <Button x:Name="MondayTimeButton" Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="0" Grid.Column="1"/>
+                <Button x:Name="TuesdayTimeButton" Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="1" Grid.Column="1"/>
+                <Button x:Name="WednesdayTimeButton" Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="2" Grid.Column="1"/>
+                <Button x:Name="ThursdayTimeButton" Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="3" Grid.Column="1"/>
+                <Button x:Name="FridayTimeButton" Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="4" Grid.Column="1"/>
+                <Button x:Name="SaturdayTimeButton" Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="5" Grid.Column="1"/>
+                <Button x:Name="SundayTimeButton" Text="" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Grid.Row="6" Grid.Column="1"/>
             </Grid>
             
         </StackLayout>

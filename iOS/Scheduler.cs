@@ -68,6 +68,11 @@ namespace SUGAR_CrossPlatform.iOS
             });
         }
 
+		public void CancelProfileNotifications(Profile prof) {
+			var requests = new string[] { prof.Name + "Enable", prof.Name + "Disable" };
+			UNUserNotificationCenter.Current.RemovePendingNotificationRequests(requests);
+		}
+
         private NSDateComponents GetTargetTime(Profile prof, bool enable) {
             // We need: Day, Hour and minute.
 

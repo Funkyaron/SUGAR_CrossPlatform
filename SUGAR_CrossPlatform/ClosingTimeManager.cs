@@ -57,6 +57,11 @@ namespace SUGAR_CrossPlatform
             return closingTimes;
         }
 
+		public TimeUnit GetClosingTime(DayOfWeek day) {
+			TimeUnit[] allClosingTimes = GetAllClosingTimes();
+			return allClosingTimes[ToIndex(day)];
+		}
+
         private void SaveAllClosingTimes(TimeUnit[] times) {
             StringBuilder fileStringBuilder = new StringBuilder();
             foreach (TimeUnit time in times) {

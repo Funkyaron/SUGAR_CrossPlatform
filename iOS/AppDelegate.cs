@@ -20,14 +20,14 @@ namespace SUGAR_CrossPlatform.iOS
 #if DEBUG
 			Xamarin.Calabash.Start();
 #endif
+			LoadApplication(new App());
+
             UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) =>
             {
                 // Handle approval..
             });
 
             UNUserNotificationCenter.Current.Delegate = new ProfileUpdateDelegate();
-
-            LoadApplication(new App());
 
             new CNContactStore().RequestAccess(CNEntityType.Contacts, (granted, error) => { });
 
