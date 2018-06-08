@@ -11,7 +11,7 @@
                    TextColor="Black" 
                    HorizontalOptions="Center"/>
             
-            <Grid>
+            <Grid x:Name="WeekDayGrid">
             
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>

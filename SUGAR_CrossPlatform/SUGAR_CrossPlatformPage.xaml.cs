@@ -19,7 +19,9 @@ namespace SUGAR_CrossPlatform
 
         public void OpenClosingTimes(object sender,EventArgs e)
         {
+			Navigation.PushAsync(new ClosingTimesPage());
             return;
         }
+        
     }
 }

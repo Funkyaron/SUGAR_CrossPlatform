@@ -72,6 +72,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ChangeClosingTimesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -115,6 +119,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ClosingTimesPage.xaml.cs">
       <DependentUpon>ClosingTimesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ChangeClosingTimesPage.xaml.cs">
+      <DependentUpon>ChangeClosingTimesPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
