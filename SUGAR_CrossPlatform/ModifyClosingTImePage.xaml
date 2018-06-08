@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="SUGAR_CrossPlatform.ModifyClosingTImePage">
+    <ContentPage.Content>
+        <StackLayout Margin="0,85,0,0">
+            <Label x:Name="ClosingTimeDescription" Text="Hello World!" TextColor="Black" HorizontalOptions="Center" Margin="0,0,0,45"/>
+            <TimePicker x:Name="ClosingTimePicker" Margin="40,0,40,0"/>
+            <Button x:Name="SaveClosingTimeButton" Text="Speichern" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Margin="40,45,40,0"/>
+            <Button x:Name="AbortButton" Text="Abbrechen" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0" Margin="40,10,40,0"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

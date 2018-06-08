@@ -64,6 +64,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ModifyClosingTImePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ClosingTimesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -101,6 +109,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)DeleteProfileCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DownloadProfilesPage.xaml.cs">
       <DependentUpon>DownloadProfilesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ModifyClosingTImePage.xaml.cs">
+      <DependentUpon>ModifyClosingTImePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ClosingTimesPage.xaml.cs">
+      <DependentUpon>ClosingTimesPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

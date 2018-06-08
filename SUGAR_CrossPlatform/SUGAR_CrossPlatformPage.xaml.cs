@@ -17,11 +17,6 @@ namespace SUGAR_CrossPlatform
             System.Console.WriteLine("Opening the activity 'ProfileOverview' ...");
         }
 
-        public void OpenDoNotDisturb(object sender,EventArgs e)
-        {
-            Console.WriteLine("I never asked for this.");
-        }
-
         public void OpenClosingTimes(object sender,EventArgs e)
         {
             return;
