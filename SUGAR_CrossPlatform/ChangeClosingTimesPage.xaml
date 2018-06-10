@@ -5,8 +5,8 @@
             <Image/>
             <Label x:Name="ClosingTimeDescription" TextColor="Black"/>
             <TimePicker x:Name="ClosingTimePicker"/>
-            <Button x:Name="ConfirmClosingTimeButton" Text="Speichern" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0"/>
-            <Button x:Name="AbortButton" Text="Abbrechen" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="0"/>
+            <Button x:Name="ConfirmClosingTimeButton" Text="Speichern" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="25"/>
+            <Button x:Name="AbortButton" Text="Abbrechen" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="25"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
