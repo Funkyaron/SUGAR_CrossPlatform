@@ -20,7 +20,7 @@
                     HorizontalOptions="Center"
                     Margin="0,50,0,0"
                     WidthRequest="225"
-                    BorderWidth="0.5"
+                    BorderWidth="1"
                     BorderRadius="10"
                     Clicked="OpenShowProfiles"
                     />
@@ -31,7 +31,7 @@
                     HorizontalOptions="Center"
                     Margin="0,1,0,0"
                     WidthRequest="225"
-                    BorderWidth="0.5"
+                    BorderWidth="1"
                     BorderRadius="10"
                     Clicked="OpenClosingTimes"/>
             <Image x:Name="Logo" Scale="0.25"/>

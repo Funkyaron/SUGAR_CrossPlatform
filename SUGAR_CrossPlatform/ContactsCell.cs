@@ -48,8 +48,9 @@ namespace SUGAR_CrossPlatform
             
 			// Setup all elements
 			Container.WidthRequest = 150;
-            Container.Margin = new Thickness(10,0,10,0);
-			Container.CornerRadius = 0;
+			Container.HeightRequest = 25;
+            Container.Margin = new Thickness(10,0,10,10);
+			Container.CornerRadius = 25;         
             Container.OutlineColor = Color.Black;
 			ContainerLayout.Orientation = StackOrientation.Horizontal;
 			NameLabel.VerticalOptions = LayoutOptions.Center;

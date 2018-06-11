@@ -19,6 +19,7 @@ namespace SUGAR_CrossPlatform.iOS
 
         public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
         {
+			Console.WriteLine("ProfileUpdateDelegate: WillPresentNotification()");
             if(notification.Request.Identifier.Contains("ClosingTime") == false) {
                 ProfileManager mgr = new ProfileManager();
                 Scheduler scheduler = new Scheduler();

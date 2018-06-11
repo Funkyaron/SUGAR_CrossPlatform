@@ -172,6 +172,8 @@ namespace SUGAR_CrossPlatform
             {
                 prof.Allowed = true;
 				SaveProfile(prof);
+				IScheduler scheduler = DependencyService.Get<IScheduler>();
+				scheduler.CancelProfileNotifications(prof);
             }
             else
             {
@@ -238,14 +240,14 @@ namespace SUGAR_CrossPlatform
         private string GetFolderPath()
         {
             string folderPath = "";
-//#if __Android__
+#if __Android__
             folderPath += Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-/*#endif
+#endif
 #if __IOS__
             NSFileManager fileMgr = NSFileManager.DefaultManager;
             NSUrl url = fileMgr.GetContainerUrl("group.de.unisiegen.SUGAR-CrossPlatform");
             folderPath += url.Path;
-#endif*/
+#endif
             return folderPath;
         }
 
