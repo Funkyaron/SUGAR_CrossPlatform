@@ -166,7 +166,7 @@ namespace SUGAR_CrossPlatform
         }
 
 
-        public void InitProfile(Profile prof)
+        public async void InitProfile(Profile prof)
         {
             if (prof.Active == false)
             {
@@ -218,8 +218,8 @@ namespace SUGAR_CrossPlatform
 
 #if __IOS__
             var callDirManager = CXCallDirectoryManager.SharedInstance;
-
-            callDirManager.ReloadExtension(
+			await callDirManager.ReloadExtensionAsync("de.unisiegen.SUGAR-CrossPlatform.PhoneBlockExtension");
+            /*callDirManager.ReloadExtension(
                 "de.unisiegen.SUGAR-CrossPlatform.PhoneBlockExtension",
                error =>
                {
@@ -231,7 +231,7 @@ namespace SUGAR_CrossPlatform
                    {
                        // Error
                    }
-               });
+               });*/
 #endif
         }
 

@@ -26,6 +26,10 @@ namespace SUGAR_CrossPlatform
             ProfManager = new ProfileManager();
             allProfiles = ProfManager.GetAllProfiles();
 
+			/*foreach(Profile prof in allProfiles) {
+				ProfManager.InitProfile(prof);
+			}*/
+
 			var AddProfileImage = new Image()
 			{
 				WidthRequest = 25,

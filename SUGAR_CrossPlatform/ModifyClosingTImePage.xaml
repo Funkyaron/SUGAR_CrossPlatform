@@ -6,7 +6,7 @@
             <TimePicker x:Name="ClosingTimePicker"  Margin="40,10,40,0"/>
             <Button x:Name="SaveClosingTimeButton" Text="Speichern" Clicked="SaveClosingTime" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="20" Margin="40,45,40,0"/>
             <Button x:Name="RemoveClosingTimeButton" Text="Entfernen" Clicked="RemoveClosingTime" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="20" Margin="40,10,40,0"/>
-            <Button x:Name="AbortButton" Text="Abbrechen" Clicked="Abort" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="10" Margin="40,10,40,0"/>
+            <Button x:Name="AbortButton" Text="Abbrechen" Clicked="Abort" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="20" Margin="40,10,40,0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

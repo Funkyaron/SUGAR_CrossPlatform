@@ -16,8 +16,8 @@ namespace SUGAR_CrossPlatform.iOS
         {
             base.DidReceiveNotificationResponse(center, response, completionHandler);
         }
-
-        public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+        
+        public override async void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
         {
 			Console.WriteLine("ProfileUpdateDelegate: WillPresentNotification()");
             if(notification.Request.Identifier.Contains("ClosingTime") == false) {
@@ -44,7 +44,8 @@ namespace SUGAR_CrossPlatform.iOS
                 mgr.SaveProfile(prof);
 
                 var callDirManager = CXCallDirectoryManager.SharedInstance;
-                callDirManager.ReloadExtension(
+				await callDirManager.ReloadExtensionAsync("de.unisiegen.SUGAR-CrossPlatform.PhoneBlockExtension");
+                /*callDirManager.ReloadExtension(
                     "de.unisiegen.SUGAR-CrossPlatform.PhoneBlockExtension",
                    error =>
                    {
@@ -56,7 +57,7 @@ namespace SUGAR_CrossPlatform.iOS
                        {
                            // An error occured. But what to do with it?
                        }
-                   });
+                   });*/
             }
 
             completionHandler(UNNotificationPresentationOptions.Alert);

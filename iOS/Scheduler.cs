@@ -13,7 +13,7 @@ namespace SUGAR_CrossPlatform.iOS
         {
         }
 
-        public void ScheduleNextEnable(Profile prof) {
+        public async void ScheduleNextEnable(Profile prof) {
             bool shouldApply = false;
             bool[] days = prof.Days;
             foreach(bool day in days) {
@@ -33,14 +33,10 @@ namespace SUGAR_CrossPlatform.iOS
             var requestID = prof.Name + "Enable";
             var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
 
-            UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) => {
-                if (err != null) {
-                    // Do something with error..
-                }
-            });
+			await UNUserNotificationCenter.Current.AddNotificationRequestAsync(request);
         }
 
-        public void ScheduleNextDisable(Profile prof) {
+        public async void ScheduleNextDisable(Profile prof) {
             bool shouldApply = false;
             bool[] days = prof.Days;
             foreach (bool day in days) {
@@ -60,12 +56,7 @@ namespace SUGAR_CrossPlatform.iOS
             var requestID = prof.Name + "Disable";
             var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
 
-            UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) => {
-                if (err != null)
-                {
-                    // Do something with error..
-                }
-            });
+			await UNUserNotificationCenter.Current.AddNotificationRequestAsync(request);
         }
 
 		public void CancelProfileNotifications(Profile prof) {
@@ -74,9 +65,9 @@ namespace SUGAR_CrossPlatform.iOS
 		}
 
         private NSDateComponents GetTargetTime(Profile prof, bool enable) {
-            // We need: Day, Hour and minute.
+			// We need: Day, Hour and minute.
 
-            var targetTime = new NSDateComponents();
+			var targetTime = new NSDateComponents();
             var now = DateTime.Now;
 
             var days = prof.Days;
@@ -149,9 +140,9 @@ namespace SUGAR_CrossPlatform.iOS
 
 
 
+        
 
-
-        public void ScheduleNextClosingTime(DayOfWeek day, TimeUnit time) {
+        public async void ScheduleNextClosingTime(DayOfWeek day, TimeUnit time) {
             var content = new UNMutableNotificationContent();
             content.Title = "Feierabend!";
             content.Subtitle = "Mach mal Pause";
@@ -168,6 +159,7 @@ namespace SUGAR_CrossPlatform.iOS
 
             UNUserNotificationCenter.Current.RemovePendingNotificationRequests(new string[] { requestID });
             UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) => { });
+			await UNUserNotificationCenter.Current.AddNotificationRequestAsync(request);
         }
 
         public void CancelClosingTime(DayOfWeek day) {
