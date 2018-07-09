@@ -20,18 +20,24 @@ namespace SUGAR_CrossPlatform
         }
         
         public async void ConfirmDownload(object sender, EventArgs args) {
+			string serverAdress = ServerAdressInput.Text;
             string userName = UserNameInput.Text;
             string userPassword = UserPasswordInput.Text;
-            Task<bool> downloadFilesTask = GetFTP.RetrieveFilesAsync(userName, userPassword);
+            Task<bool> downloadFilesTask = GetFTP.RetrieveFilesAsync(serverAdress,userName, userPassword);
             // irgendwasLabel.Text = "Lädt...";
             bool success = await downloadFilesTask;
 			parent.UpdateList();
             if(success)
             {
-                Navigation.PopAsync();
+                await Navigation.PopAsync();
             } else if(!success) {
-                DisplayAlert("Fehler:", "Während des Downloads ist ein Fehler aufgetreten", "OK");
+                await DisplayAlert("Fehler:", "Während des Downloads ist ein Fehler aufgetreten", "OK");
+				await Navigation.PopAsync();
             }
         }
+
+		public void AbortDownload(object sender, EventArgs args) {
+			Navigation.PopAsync();
+		}
     }
 }

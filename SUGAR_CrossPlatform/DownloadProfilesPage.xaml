@@ -4,16 +4,20 @@
         <StackLayout Orientation="Vertical" Margin="0,75,0,0">
             <Label Text="Bitte geben Sie die Login-Daten" HorizontalOptions="Center"/>
             <Label Text="für den Server ein" HorizontalOptions="Center"/>
-            <StackLayout Orientation="Horizontal" Margin="50,30,0,0">
-                <Label Text="Benutzername" VerticalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" Margin="50, 30, 0, 0">
+                <Label Text="Adresse" VerticalOptions="Center" WidthRequest="120"/>
+                <Entry x:Name="ServerAdressInput" WidthRequest="150"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Margin="50,10,0,0">
+                <Label Text="Benutzername" VerticalOptions="Center" WidthRequest="120"/>
                 <Entry x:Name="UserNameInput" WidthRequest="150"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" Margin="50,10,0,0">
-                <Label Text="Passwort" VerticalOptions="Center"/>
-                <Entry Margin="40,0,0,0" x:Name="UserPasswordInput" WidthRequest="150"/>
+                <Label Text="Passwort" VerticalOptions="Center" WidthRequest="120"/>
+                <Entry x:Name="UserPasswordInput" WidthRequest="150" IsPassword="true"/>
             </StackLayout>
             <Button Margin="50,25,50,0" x:Name="ConfirmDownloadButton" Text="Download starten" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="20" Clicked="ConfirmDownload"/>
-            <Button Margin="50,5,50,0" x:Name="AbortDownloadButton" Text="Abbrechen" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="20"/>
+            <Button Margin="50,5,50,0" x:Name="AbortDownloadButton" Text="Abbrechen" TextColor="Black" BorderColor="Black" BorderWidth="1" BorderRadius="20" Clicked="AbortDownload"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

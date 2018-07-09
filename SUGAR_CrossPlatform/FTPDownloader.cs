@@ -24,13 +24,14 @@ namespace SUGAR_CrossPlatform
         //
 		// if(success)...
         //
-        public async Task<bool> RetrieveFilesAsync(string userName, string password) {
+        public async Task<bool> RetrieveFilesAsync(string serverAdress, string userName, string password) {
             bool isSuccessful = false;
 			FtpWebResponse response = null;
 			Stream responseStream = null;
 			StreamReader directoryReader = null;
 			try {
-				FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://ftp.strato.com/%2F/SUGAR-CrossPlatform/SUGAR-CrossPlatform");
+				string requestUrl = "ftp://" + serverAdress + "/%2F/SUGAR-CrossPlatform/SUGAR-CrossPlatform";
+				FtpWebRequest request = (FtpWebRequest)WebRequest.Create(requestUrl);
 				request.Credentials = new NetworkCredential(userName, password);
 				request.Method = WebRequestMethods.Ftp.ListDirectory;
 				request.KeepAlive = false;
